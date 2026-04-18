@@ -176,6 +176,18 @@ summaryTab |> gt() |>
 ```
 
 
+### Table2
+
+```{r}
+yearRes() |> gt() |> 
+  #cols_label(Prize ~ "Prize Value", Number ~ "Number of Prizes", Total_value ~ "Total Value") |> 
+  tab_header(title = "Expected prizes") |> 
+  opt_stylize(style = 6, color = "pink") |> 
+  opt_table_font(stack = "humanist")
+```
+
+
+
 ### Column {.tabset}
 
 #### Analysed
