@@ -32,6 +32,7 @@ prizePool[x] <- 1
 
 
 ```{r}
+#Month simulations
 Earnest <- function(stake, pool, vals, probs){
   mywins <- sample(pool,stake, replace = TRUE)
   monthPrizes <- sum(mywins)
@@ -45,7 +46,7 @@ Earnest <- function(stake, pool, vals, probs){
   
 }
 
-#3 Long term simulations
+#Long term simulations
 earnYear <- function(stake, pool, vals, probs){
   
   earnMonth <- function(stake, pool, vals, probs){
@@ -116,6 +117,11 @@ rownames(yearRes)[nrow(yearRes)] <- "Total"
 
 })
 
+#Long term results
+lifeRes <- reactive({
+  ResLife <- sapply(1:input$simYrs, function(x) earnYear(bondStake, prizePool, prizeVal, prizeProb))
+  ResLife <- sort(ResLife, decreasing = TRUE)
+})
 #enter parameters
 myPrize <- reactive({
   req(input$bondID)  # wait until there's actually input
@@ -206,23 +212,31 @@ summaryTab |> gt() |>
   
 ```
 
+### Table2
+
+```{r}
+
+```
+
+
+
 ### Column {.tabset}
 
 #### Analysed
 
 ```{r}
 # #| title: Number of unclaimed prizes by value are ~linear on a log-log plot
-
+lifeRes <- lifeRes()
 mySeq <- 3
 forText <- simyrs/8
-meanResAll <- round(mean(ResLife),2)
-meanResYield <- round((100*meanResAll/bondStake),2)
-ggplot() + aes(ResLife)+
+meanResAll <- mean(lifeRes)
+meanResYield <- round((100*meanResAll/input$bondStake),2)
+ggplot() + aes(lifeRes)+
   geom_histogram(binwidth = 0.075, fill="steelblue", col = "white")+
   scale_x_continuous(trans='log10')+
   geom_vline(xintercept = meanResAll, col = "pink", lwd = 1, lty = "dashed")+
   #geom_vline(xintercept = logmean, col = "red", lwd = 1, lty = "dashed")+
-  annotate("text", x = ResLife[1:mySeq], y=seq(1, mySeq, 1)*forText*0.25, label = ResLife[1:mySeq])+
+  annotate("text", x = lifeRes[1:mySeq], y=seq(1, mySeq, 1)*forText*0.25, label = lifeRes[1:mySeq])+
   #annotate("text", x=logmean, y=-10, label= meanRes)+
   annotate("text", x=meanResAll, y=-forText*0.1, label= meanResAll)+
   annotate("text", x=meanResAll, y=-forText*0.2, label= meanResYield)+
