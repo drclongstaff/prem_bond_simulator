@@ -1,5 +1,5 @@
 ---
-title: "Premimum Bond Prize Finder"
+title: "Premimum Bond Prize Simulator"
 format: 
   dashboard:
     scrolling: false
@@ -28,6 +28,11 @@ allMonths <- c("Jan", "Feb", "March", "April", "May", "June", "July", "Aug", "Se
 prizePool <- rep(0, 23000)
 x <- round(runif(1)*23000)
 prizePool[x] <- 1
+
+prizeVal <- c(1e6, 100000, 50000, 25000, 10000, 5000, 1000, 500, 100, 50, 25)
+prizeNos <- c(2,71,142,255,712,1421,15021, 45063, 1535556, 1535556, 2803175)
+allPrizes <- sum(prizeNos)
+prizeProb <- prizeNos/allPrizes
 ```
 
 
@@ -66,20 +71,23 @@ earnYear <- function(stake, pool, vals, probs){
 
 #  {.sidebar}
 
-#### Enter your premium bond number here
-
-```{r}
-
- numericInput("simYrs", tags$b("Years of simulation"), "", 10, min = 5)
-
-```
+#### Enter your premium bond holding and years of simulation
 
 ```{r}
 tags$b("How many premium bonds to you hold (£)")
-numericInput("bondStake", tags$b("Value of bonds"), "", 50000, min = 1)
+numericInput("bondStake", tags$b("Value of bonds"), value = 50000, min=1, max=50000)
 tags$br()
 
 ```
+
+
+
+```{r}
+
+ numericInput("simYrs", tags$b("Years of simulation"), value=100, min=1, max=1000)
+
+```
+
 
 ```{r}
 tags$b("Summary of returns")
@@ -98,30 +106,28 @@ tags$b("Summary of returns")
 
 ```{r}
 #| context: server
-#monthly draws
-yearRes <- reactive({data.frame(t(sapply(allMonths, function(x) Earnest(input$bondStake, prizePool, prizeVal, prizeProb))))
-colnames(yearRes)[c(1,2,3,4)] <- c("Number_prizes", "Prize_value", "Annual_yield", "Prizes")
 
-#add a summary row to the table
-totalsRow <- data.frame(
-  Number_prizes      = sum(as.numeric(yearRes$Number_prizes)),
-  Prize_value  = sum(as.numeric(yearRes$Prize_value)), 
-  Annual_yield = 100*(sum(as.numeric(yearRes$Prize_value))/bondStake),
-  Prizes = " "
-  #Prizes = paste(sort(unlist(strsplit(yearRes$Prizes, ", "))), collapse = ", ")
-  
-)
-
-yearRes <- rbind(yearRes, totalsRow)
-rownames(yearRes)[nrow(yearRes)] <- "Total"
-
+monthRes <- reactive({
+  monthRes <- data.frame("A"=1:5,
+             "B"=2:6,
+             "c"=3:7)
+  monthRes
 })
 
-#Long term results
+output$monthResTab <- renderTable({
+  monthRes()
+})
+
+
 lifeRes <- reactive({
-  ResLife <- sapply(1:input$simYrs, function(x) earnYear(bondStake, prizePool, prizeVal, prizeProb))
-  ResLife <- sort(ResLife, decreasing = TRUE)
+  set.seed(input$simYrs)
+  runif(100)*10
 })
+
+output$lifeSim <- renderPlot({
+hist(lifeRes())
+})
+
 
 ```
 
@@ -143,16 +149,22 @@ p("from 2,608,195 unclaimed prizes")
 p("simply enter premium bond numbers top-left")
 ```
 
+```{r}
+#| content: valuebox
+#| title: "This dashboard locates unclaimed prizes"
+#| color: green
+#| icon: unlock-fill
+p("This is another box")
+```
+
+
 ## Row {height="86%" .fill}
 
 ### Table
 
 ```{r}
 #Summary table of data
-prizeVal <- c(1e6, 100000, 50000, 25000, 10000, 5000, 1000, 500, 100, 50, 25)
-prizeNos <- c(2,71,142,255,712,1421,15021, 45063, 1535556, 1535556, 2803175)
-allPrizes <- sum(prizeNos)
-prizeProb <- prizeNos/allPrizes
+
 probTab <- data.frame("Prize"=LETTERS[1:11],
                       "Value"=prizeVal,
                       "Number"=prizeNos,
@@ -176,47 +188,16 @@ summaryTab |> gt() |>
 ```
 
 
-### Table2
+### Table
 
 ```{r}
-yearRes() |> gt() |> 
-  #cols_label(Prize ~ "Prize Value", Number ~ "Number of Prizes", Total_value ~ "Total Value") |> 
-  tab_header(title = "Expected prizes") |> 
-  opt_stylize(style = 6, color = "pink") |> 
-  opt_table_font(stack = "humanist")
+tableOutput("monthResTab")
 ```
 
 
-
-### Column {.tabset}
-
-#### Analysed
+### Plot
 
 ```{r}
-# #| title: Number of unclaimed prizes by value are ~linear on a log-log plot
-lifeRes <- lifeRes()
-mySeq <- 3
-forText <- simyrs/8
-meanResAll <- mean(lifeRes)
-meanResYield <- round((100*meanResAll/input$bondStake),2)
-ggplot() + aes(lifeRes)+
-  geom_histogram(binwidth = 0.075, fill="steelblue", col = "white")+
-  scale_x_continuous(trans='log10')+
-  geom_vline(xintercept = meanResAll, col = "pink", lwd = 1, lty = "dashed")+
-  #geom_vline(xintercept = logmean, col = "red", lwd = 1, lty = "dashed")+
-  annotate("text", x = lifeRes[1:mySeq], y=seq(1, mySeq, 1)*forText*0.25, label = lifeRes[1:mySeq])+
-  #annotate("text", x=logmean, y=-10, label= meanRes)+
-  annotate("text", x=meanResAll, y=-forText*0.1, label= meanResAll)+
-  annotate("text", x=meanResAll, y=-forText*0.2, label= meanResYield)+
-  theme_minimal()
+plotOutput("lifeSim")
 ```
-
-#### Raw data
-
-The text file provided by NS&I is not easy to search
-
-
-
-#### Cleaning code
-
 
