@@ -97,7 +97,24 @@ tags$b("Summary of returns")
 
 ```{r}
 #| context: server
+#monthly draws
+yearRes <- reactive({data.frame(t(sapply(allMonths, function(x) Earnest(input$bondStake, prizePool, prizeVal, prizeProb))))
+colnames(yearRes)[c(1,2,3,4)] <- c("Number_prizes", "Prize_value", "Annual_yield", "Prizes")
 
+#add a summary row to the table
+totalsRow <- data.frame(
+  Number_prizes      = sum(as.numeric(yearRes$Number_prizes)),
+  Prize_value  = sum(as.numeric(yearRes$Prize_value)), 
+  Annual_yield = 100*(sum(as.numeric(yearRes$Prize_value))/bondStake),
+  Prizes = " "
+  #Prizes = paste(sort(unlist(strsplit(yearRes$Prizes, ", "))), collapse = ", ")
+  
+)
+
+yearRes <- rbind(yearRes, totalsRow)
+rownames(yearRes)[nrow(yearRes)] <- "Total"
+
+})
 
 #enter parameters
 myPrize <- reactive({
@@ -196,29 +213,20 @@ summaryTab |> gt() |>
 ```{r}
 # #| title: Number of unclaimed prizes by value are ~linear on a log-log plot
 
-p <- ggplot(SumDF, aes(Prize, Number)) +
-  geom_point(size = 5, color="blue")+
-  scale_y_continuous(transform = 'log10', labels = scales::comma)+
-  scale_x_continuous(transform = 'log10', labels = scales::comma)+
-  geom_text(
-    mapping = aes(label = paste0("£",Prize)), 
-    nudge_x = -0.25, 
-    inherit.aes = TRUE,
-    sci=FALSE
-  ) + 
-  labs(x="Prize value, £",
-       y="Number of prizes",
-       title = "Number of unclaimed prizes by value",
-       subtitle = "The £250 prize was available from June 1957 to July 1974."
-       )+
+mySeq <- 3
+forText <- simyrs/8
+meanResAll <- round(mean(ResLife),2)
+meanResYield <- round((100*meanResAll/bondStake),2)
+ggplot() + aes(ResLife)+
+  geom_histogram(binwidth = 0.075, fill="steelblue", col = "white")+
+  scale_x_continuous(trans='log10')+
+  geom_vline(xintercept = meanResAll, col = "pink", lwd = 1, lty = "dashed")+
+  #geom_vline(xintercept = logmean, col = "red", lwd = 1, lty = "dashed")+
+  annotate("text", x = ResLife[1:mySeq], y=seq(1, mySeq, 1)*forText*0.25, label = ResLife[1:mySeq])+
+  #annotate("text", x=logmean, y=-10, label= meanRes)+
+  annotate("text", x=meanResAll, y=-forText*0.1, label= meanResAll)+
+  annotate("text", x=meanResAll, y=-forText*0.2, label= meanResYield)+
   theme_minimal()
-
-axisText <- element_text(face = "bold", color = "grey25", size = 14)
-titleText <- element_text(face = "bold", color = "grey10", size = 20, hjust = 0.5)
-subtitleText <- element_text(face = "bold", color = "grey35", size = 14, hjust = 0.5)
-p+theme(axis.title = axisText, axis.text = axisText,
-        plot.title = titleText,
-        plot.subtitle = subtitleText)
 ```
 
 #### Raw data
