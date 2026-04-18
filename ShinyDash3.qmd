@@ -22,7 +22,12 @@ library(ggplot2)
 library(gt)
 library(bslib)
 library(data.table)
-BondsDF_long <- fread("Data/BondsDF_long.csv")
+# Read once at startup, not on every input change
+allMonths <- c("Jan", "Feb", "March", "April", "May", "June", "July", "Aug", "Sept", "Oct", "Nov", "Dec")
+#set up the pool for prize draws = 1 in 23000 zeros
+prizePool <- rep(0, 23000)
+x <- round(runif(1)*23000)
+prizePool[x] <- 1
 ```
 
 #  {.sidebar}
@@ -31,22 +36,22 @@ BondsDF_long <- fread("Data/BondsDF_long.csv")
 
 ```{r}
 
- textInput("bondID", tags$b("Bond Number"), "", placeholder ="59EE417688")
+ numericInput("simYrs", tags$b("Years of simulation"), "", 10, min = 5)
 
 ```
 
 ```{r}
-tags$b("Your prize is")
-tags$b(textOutput("prize"))
+tags$b("How many premium bonds to you hold (£)")
+numericInput("bondStake", tags$b("Value of bonds"), "", 50000, min = 1)
 tags$br()
 
 ```
 
 ```{r}
-tags$b("See what you could have won")
-actionButton("go", "Refresh", icon("refresh"), class = "btn-primary")
-tags$b(textOutput("bond"))
-tags$br()
+tags$b("Summary of returns")
+#actionButton("go", "Refresh", icon("refresh"), class = "btn-primary")
+#tags$b(textOutput("bond"))
+#tags$br()
 ```
 
 [Learn more](https://www.nsandi.com/products/premium-bonds/) about premium bonds
@@ -59,8 +64,9 @@ tags$br()
 
 ```{r}
 #| context: server
-# Read once at startup, not on every input change
 
+
+#enter parameters
 myPrize <- reactive({
   req(input$bondID)  # wait until there's actually input
   
@@ -112,17 +118,35 @@ p("simply enter premium bond numbers top-left")
 ### Table
 
 ```{r}
-SumDF <- data.frame(table(BondsDF_long$Prize))
-colnames(SumDF) <- c("Prize", "Number")
-SumDF$Prize <- as.numeric(levels(SumDF$Prize))[SumDF$Prize]
-SumDF <-  SumDF |> dplyr::mutate(Total_value=Prize*Number)
-totalValue <- SumDF |> dplyr::summarise(sum(Total_value, na.rm = TRUE)) 
-totalValue <- format(totalValue, sci=FALSE,  big.mark = ",")
-totalNumber <- SumDF |> dplyr::summarise(sum(Number, na.rm = TRUE)) 
-totalNumber <- format(totalNumber, sci=FALSE,  big.mark = ",")
-SumDF |> gt() |> 
-  cols_label(Prize ~ "Prize Value", Number ~ "Number of Prizes", Total_value ~ "Total Value") |> 
-  tab_header(title = "Unclaimed prizes from 1956 to 2025") |> 
+#Summary table of data
+prizeVal <- c(1e6, 100000, 50000, 25000, 10000, 5000, 1000, 500, 100, 50, 25)
+prizeNos <- c(2,71,142,255,712,1421,15021, 45063, 1535556, 1535556, 2803175)
+allPrizes <- sum(prizeNos)
+prizeProb <- prizeNos/allPrizes
+probTab <- data.frame("Prize"=LETTERS[1:11],
+                      "Value"=prizeVal,
+                      "Number"=prizeNos,
+                      "Probability"=signif(prizeProb,3)
+)
+
+summaryRow <- data.frame("Prize"="Totals", "Value"= sum(prizeVal), "Number"=allPrizes, "Probability" = round(sum(prizeProb)))
+
+summaryTab <- rbind(probTab, summaryRow)
+
+
+
+
+#SumDF <- data.frame(table(BondsDF_long$Prize))
+#colnames(SumDF) <- c("Prize", "Number")
+#SumDF$Prize <- as.numeric(levels(SumDF$Prize))[SumDF$Prize]
+#SumDF <-  SumDF |> dplyr::mutate(Total_value=Prize*Number)
+#totalValue <- SumDF |> dplyr::summarise(sum(Total_value, na.rm = TRUE)) 
+#totalValue <- format(totalValue, sci=FALSE,  big.mark = ",")
+#totalNumber <- SumDF |> dplyr::summarise(sum(Number, na.rm = TRUE)) 
+#totalNumber <- format(totalNumber, sci=FALSE,  big.mark = ",")
+summaryTab |> gt() |> 
+  #cols_label(Prize ~ "Prize Value", Number ~ "Number of Prizes", Total_value ~ "Total Value") |> 
+  tab_header(title = "Expected prizes") |> 
   opt_stylize(style = 6, color = "pink") |> 
   opt_table_font(stack = "humanist") #|> 
   #tab_footnote(
