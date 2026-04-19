@@ -149,7 +149,9 @@ p("Adjust years of simulation")
 
 ## Row {height="86%" .fill}
 
-### Table
+### Column {.tabset}
+
+#### Table
 
 ```{r}
 #Summary table of data
@@ -176,6 +178,10 @@ summaryTab |> gt() |>
   
 ```
 
+#### Background
+
+Some text here
+
 
 ### Table
 
@@ -186,11 +192,16 @@ tableOutput("yearResTab")
 ```
 
 
-### Plot
+### Column {.tabset}
+
+#### Plot
 
 ```{r}
 numericInput("simYrs", "Years of simulation", value=100, min=1, max=1000, width = "100%", updateOn = "blur")
 
 plotOutput("lifeSim")
 ```
+
+
+#### Summary
 
