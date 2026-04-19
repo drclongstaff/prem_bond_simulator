@@ -37,11 +37,11 @@ prizeProb <- prizeNos/allPrizes
 
 
 
-# Select a value of premium bonds and years of investment for simulation
+# Select a value of premium bonds and years of investment to simulate
 
 ```{r}
 #| context: server
-allMonths <- c("Jan", "Feb", "March", "April", "May", "June", "July", "Aug", "Sept", "Oct", "Nov", "Dec")
+#allMonths <- c("Jan", "Feb", "March", "April", "May", "June", "July", "Aug", "Sept", "Oct", "Nov", "Dec")
 Earnest <- function(stake, pool, vals, probs){
   
   mywins <- sample(pool,stake, replace = TRUE)
