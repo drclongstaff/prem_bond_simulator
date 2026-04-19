@@ -37,47 +37,53 @@ prizeProb <- prizeNos/allPrizes
 
 
 
-# Premium bond monthly prize draws began in 1956 and there are millions of unclaimed prizes
+# Select a value of premium bonds and years of investment for simulation
 
 ```{r}
 #| context: server
-
+allMonths <- c("Jan", "Feb", "March", "April", "May", "June", "July", "Aug", "Sept", "Oct", "Nov", "Dec")
 Earnest <- function(stake, pool, vals, probs){
+  
   mywins <- sample(pool,stake, replace = TRUE)
   monthPrizes <- sum(mywins)
   monthWinnings <- sample(vals, monthPrizes, replace = TRUE,  prob = probs)
   monthTotal <- sum(monthWinnings)
-  yearlyReturn <- (12*monthTotal/stake)*100
+  yearlyReturn <- round((12*monthTotal/stake)*100, 2)
   
   # Collapse winnings into a readable string
   winningsStr <- if (length(monthWinnings) == 0) "0" else paste(sort(monthWinnings), collapse = ", ")
-  results <- c(monthPrizes, monthTotal, yearlyReturn, winningsStr)
+  results <- c( monthPrizes, monthTotal, yearlyReturn, winningsStr)
   
 }
 
 
 yearRes <- reactive({
   yearRes <- data.frame(t(sapply(allMonths, function(x) Earnest(input$bondStake, prizePool, prizeVal, prizeProb))))
-colnames(yearRes)[c(1,2,3,4)] <- c("Number_prizes", "Prize_value", "Annual_yield", "Prizes")
+colnames(yearRes)[c(1,2,3,4)] <- c( "Prizes", "Value", "Yield", "Wins")
 
 #add a summary row to the table
 totalsRow <- data.frame(
-  Number_prizes      = sum(as.numeric(yearRes$Number_prizes)),
-  Prize_value  = sum(as.numeric(yearRes$Prize_value)), 
-  Annual_yield = 100*(sum(as.numeric(yearRes$Prize_value))/input$bondStake),
-  Prizes = " "
+  #Month = " ",
+  Prizes      = sum(as.numeric(yearRes$Prizes)),
+  Value  = sum(as.numeric(yearRes$Value)), 
+  Yield = round(100*(sum(as.numeric(yearRes$Value))/input$bondStake), 2),
+  Wins = " "
   #Prizes = paste(sort(unlist(strsplit(yearRes$Prizes, ", "))), collapse = ", ")
   
 )
 
+#yearRes <- cbind("Month"=allMonths, yearRes)
 yearRes <- rbind(yearRes, totalsRow)
-rownames(yearRes)[nrow(yearRes)] <- "Total"
+yearRes <- cbind("Month"=c(allMonths, "Total"), yearRes)
+#rownames(yearRes)[nrow(yearRes)] <- "Total"
+
 yearRes
 
 })
 output$yearResTab <- render_gt({
   yearRes <- yearRes() |> 
-    gt() 
+    gt() |> 
+    opt_stylize(style = 6, color = "green")  
   yearRes
   
 })
@@ -118,26 +124,26 @@ output$lifeSim <- renderPlot({
 
 ```{r}
 #| content: valuebox
-#| title: "There is £108,147,675 available"
+#| title: "Prize probablilities"
 #| color: pink
-#| icon: currency-pound
-p("from 2,608,195 unclaimed prizes")
+#| icon: calculator
+p("High to low prizes")
 ```
 
 ```{r}
 #| content: valuebox
-#| title: "This dashboard locates unclaimed prizes"
-#| color: blue
-#| icon: unlock-fill
-p("simply enter premium bond numbers top-left")
-```
-
-```{r}
-#| content: valuebox
-#| title: "This dashboard locates unclaimed prizes"
+#| title: "Monthly prizes"
 #| color: green
-#| icon: unlock-fill
-p("This is another box")
+#| icon: calendar-day
+p("Choose investment")
+```
+
+```{r}
+#| content: valuebox
+#| title: "Long term simulations"
+#| color: blue
+#| icon: hourglass-split
+p("Adjust years of simulation")
 ```
 
 
@@ -160,7 +166,7 @@ summaryTab <- rbind(probTab, summaryRow)
 
 summaryTab |> gt() |> 
   #cols_label(Prize ~ "Prize Value", Number ~ "Number of Prizes", Total_value ~ "Total Value") |> 
-  tab_header(title = "Expected prizes") |> 
+  #tab_header(title = "Expected prizes") |> 
   opt_stylize(style = 6, color = "pink") |> 
   opt_table_font(stack = "humanist") #|> 
   #tab_footnote(
@@ -174,7 +180,7 @@ summaryTab |> gt() |>
 ### Table
 
 ```{r}
-numericInput("bondStake","Value of bonds", value = 50000, min=1, max=50000)
+numericInput("bondStake","Value of bonds", value = 50000, min=1, max=50000, width = "100%", updateOn = "blur")
 
 tableOutput("yearResTab")
 ```
@@ -183,7 +189,7 @@ tableOutput("yearResTab")
 ### Plot
 
 ```{r}
-numericInput("simYrs", "Years of simulation", value=100, min=1, max=1000)
+numericInput("simYrs", "Years of simulation", value=100, min=1, max=1000, width = "100%", updateOn = "blur")
 
 plotOutput("lifeSim")
 ```
