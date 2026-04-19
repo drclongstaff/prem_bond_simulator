@@ -36,8 +36,12 @@ prizeProb <- prizeNos/allPrizes
 ```
 
 
+
+# Premium bond monthly prize draws began in 1956 and there are millions of unclaimed prizes
+
 ```{r}
-#Month simulations
+#| context: server
+
 Earnest <- function(stake, pool, vals, probs){
   mywins <- sample(pool,stake, replace = TRUE)
   monthPrizes <- sum(mywins)
@@ -50,6 +54,33 @@ Earnest <- function(stake, pool, vals, probs){
   results <- c(monthPrizes, monthTotal, yearlyReturn, winningsStr)
   
 }
+
+
+yearRes <- reactive({
+  yearRes <- data.frame(t(sapply(allMonths, function(x) Earnest(input$bondStake, prizePool, prizeVal, prizeProb))))
+colnames(yearRes)[c(1,2,3,4)] <- c("Number_prizes", "Prize_value", "Annual_yield", "Prizes")
+
+#add a summary row to the table
+totalsRow <- data.frame(
+  Number_prizes      = sum(as.numeric(yearRes$Number_prizes)),
+  Prize_value  = sum(as.numeric(yearRes$Prize_value)), 
+  Annual_yield = 100*(sum(as.numeric(yearRes$Prize_value))/input$bondStake),
+  Prizes = " "
+  #Prizes = paste(sort(unlist(strsplit(yearRes$Prizes, ", "))), collapse = ", ")
+  
+)
+
+yearRes <- rbind(yearRes, totalsRow)
+rownames(yearRes)[nrow(yearRes)] <- "Total"
+yearRes
+
+})
+output$yearResTab <- render_gt({
+  yearRes <- yearRes() |> 
+    gt() 
+  yearRes
+  
+})
 
 #Long term simulations
 earnYear <- function(stake, pool, vals, probs){
@@ -65,67 +96,19 @@ earnYear <- function(stake, pool, vals, probs){
   Resyrtotal <- sum(Resmnth)
 }
 
-```
+ResLife <- reactive({
+  
+  ResLife <- sapply(1:input$simYrs, function(x) earnYear(input$bondStake, prizePool, prizeVal, prizeProb))
+  ResLife <- sort(ResLife, decreasing = TRUE)
 
-
-
-#  {.sidebar}
-
-#### Enter your premium bond holding and years of simulation
-
-```{r}
-tags$b("How many premium bonds to you hold (£)")
-numericInput("bondStake", tags$b("Value of bonds"), value = 50000, min=1, max=50000)
-tags$br()
-
-```
-
-
-
-```{r}
-
- numericInput("simYrs", tags$b("Years of simulation"), value=100, min=1, max=1000)
-
-```
-
-
-```{r}
-tags$b("Summary of returns")
-#actionButton("go", "Refresh", icon("refresh"), class = "btn-primary")
-#tags$b(textOutput("bond"))
-#tags$br()
-```
-
-[Learn more](https://www.nsandi.com/products/premium-bonds/) about premium bonds
-
-[See my Shiny apps](https://drclongstaff.github.io/shiny-clots/) for reproducible analysis of biochemical assays
-
-[Contact me](mailto:%20drclongstaff@gmail.com, "drclongstaff@gmail.com") for issues or comments about the dashboard. Or tell me if you have reclaimed a prize!
-
-# Premium bond monthly prize draws began in 1956 and there are millions of unclaimed prizes
-
-```{r}
-#| context: server
-
-monthRes <- reactive({
-  monthRes <- data.frame("A"=1:5,
-             "B"=2:6,
-             "c"=3:7)
-  monthRes
-})
-
-output$monthResTab <- renderTable({
-  monthRes()
-})
-
-
-lifeRes <- reactive({
-  set.seed(input$simYrs)
-  runif(100)*10
 })
 
 output$lifeSim <- renderPlot({
-hist(lifeRes())
+#hist(ResLife())
+  ggplot() + aes(ResLife())+
+  geom_histogram(binwidth = 0.075, fill="steelblue", col = "white")+
+  scale_x_continuous(trans='log10')+
+    theme_minimal()
 })
 
 
@@ -191,13 +174,17 @@ summaryTab |> gt() |>
 ### Table
 
 ```{r}
-tableOutput("monthResTab")
+numericInput("bondStake","Value of bonds", value = 50000, min=1, max=50000)
+
+tableOutput("yearResTab")
 ```
 
 
 ### Plot
 
 ```{r}
+numericInput("simYrs", "Years of simulation", value=100, min=1, max=1000)
+
 plotOutput("lifeSim")
 ```
 
