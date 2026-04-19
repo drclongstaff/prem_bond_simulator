@@ -19,6 +19,7 @@ server: shiny
 ```{r}
 #| context: setup
 library(ggplot2)
+library(plotly)
 library(gt)
 library(bslib)
 library(data.table)
@@ -83,7 +84,7 @@ yearRes
 output$yearResTab <- render_gt({
   yearRes <- yearRes() |> 
     gt() |> 
-    opt_stylize(style = 6, color = "green")  
+    opt_stylize(style = 2, color = "green")  
   yearRes
   
 })
@@ -109,12 +110,13 @@ ResLife <- reactive({
 
 })
 
-output$lifeSim <- renderPlot({
+output$lifeSim <- renderPlotly({
 #hist(ResLife())
-  ggplot() + aes(ResLife())+
+  p <- ggplot() + aes(ResLife())+
   geom_histogram(binwidth = 0.075, fill="steelblue", col = "white")+
   scale_x_continuous(trans='log10')+
     theme_minimal()
+  ggplotly(p)
 })
 
 
@@ -135,7 +137,7 @@ p("High to low prizes")
 #| title: "Monthly prizes"
 #| color: green
 #| icon: calendar-day
-p("Choose investment")
+p("Enter £ of bonds held")
 ```
 
 ```{r}
@@ -143,7 +145,7 @@ p("Choose investment")
 #| title: "Long term simulations"
 #| color: blue
 #| icon: hourglass-split
-p("Adjust years of simulation")
+p("Enter years for simulation")
 ```
 
 
@@ -169,7 +171,7 @@ summaryTab <- rbind(probTab, summaryRow)
 summaryTab |> gt() |> 
   #cols_label(Prize ~ "Prize Value", Number ~ "Number of Prizes", Total_value ~ "Total Value") |> 
   #tab_header(title = "Expected prizes") |> 
-  opt_stylize(style = 6, color = "pink") |> 
+  opt_stylize(style = 2, color = "pink") |> 
   opt_table_font(stack = "humanist") #|> 
   #tab_footnote(
     #footnote = "There are 2,608,195 unclaimed prizes totalling £108,147,675"
@@ -186,9 +188,9 @@ Some text here
 ### Table
 
 ```{r}
-numericInput("bondStake","Value of bonds", value = 50000, min=1, max=50000, width = "100%", updateOn = "blur")
+numericInput("bondStake",NULL, value = 50000, min=1, max=50000, width = "50%", updateOn = "blur")
 
-tableOutput("yearResTab")
+gt_output("yearResTab")
 ```
 
 
@@ -197,9 +199,9 @@ tableOutput("yearResTab")
 #### Plot
 
 ```{r}
-numericInput("simYrs", "Years of simulation", value=100, min=1, max=1000, width = "100%", updateOn = "blur")
+numericInput("simYrs", NULL, value=100, min=1, max=1000, width = "100%", updateOn = "blur")
 
-plotOutput("lifeSim")
+plotlyOutput("lifeSim")
 ```
 
 
