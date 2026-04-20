@@ -57,9 +57,15 @@ Earnest <- function(stake, pool, vals, probs){
   
 }
 
+bondStake<- reactive({
+  input$go
+  bondStake <- input$bondStake
+  
+})
 
 yearRes <- reactive({
-  yearRes <- data.frame(t(sapply(allMonths, function(x) Earnest(input$bondStake, prizePool, prizeVal, prizeProb))))
+  bondStake <- bondStake()
+  yearRes <- data.frame(t(sapply(allMonths, function(x) Earnest(bondStake, prizePool, prizeVal, prizeProb))))
 colnames(yearRes)[c(1,2,3,4)] <- c( "Prizes", "Value", "Yield", "Wins")
 
 #add a summary row to the table
@@ -188,8 +194,12 @@ Some text here
 ### Table
 
 ```{r}
-numericInput("bondStake",NULL, value = 50000, min=1, max=50000, width = "50%", updateOn = "blur")
 
+fluidRow(
+  
+  column(1,numericInput("bondStake",NULL, value = 50000, min=1, max=50000, width = "20%", updateOn = "blur")),
+  column(1,actionButton("go", "Refresh", icon("Refresh"), class = "btn-primary", width = "40%"))
+)
 gt_output("yearResTab")
 ```
 
