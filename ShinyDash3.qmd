@@ -109,9 +109,15 @@ earnYear <- function(stake, pool, vals, probs){
   Resyrtotal <- sum(Resmnth)
 }
 
+simYrs<- reactive({
+  input$do
+  simYrs <- input$simYrs
+  
+})
+
 ResLife <- reactive({
   
-  ResLife <- sapply(1:input$simYrs, function(x) earnYear(input$bondStake, prizePool, prizeVal, prizeProb))
+  ResLife <- sapply(1:simYrs(), function(x) earnYear(input$bondStake, prizePool, prizeVal, prizeProb))
   ResLife <- sort(ResLife, decreasing = TRUE)
 
 })
@@ -128,34 +134,26 @@ output$lifeSim <- renderPlotly({
 
 ```
 
-## Row {height="14%"}
+
+## Row {height = 20% .panel-input}
 
 ```{r}
-#| content: valuebox
-#| title: "Prize probablilities"
-#| color: pink
-#| icon: calculator
-p("High to low prizes")
-```
+#| layout-ncol: 3
+#helpText(h5("Change bonds held or years of simulation"))
+#numericInput("bondStake","Bonds £", value = 50000, min=1, max=50000, width = "30%")
+actionButton("go", 
+             numericInput("bondStake","Bonds £", value = 50000, min=1, max=50000, width = "100%"), 
+             icon("Refresh"), class = "btn-primary", width = "100%")
+helpText(h5("Adjust the £ of bond holding and years for long term simulation"))
 
-```{r}
-#| content: valuebox
-#| title: "Monthly prizes"
-#| color: green
-#| icon: calendar-day
-p("Enter £ of bonds held")
-```
-
-```{r}
-#| content: valuebox
-#| title: "Long term simulations"
-#| color: blue
-#| icon: hourglass-split
-p("Enter years for simulation")
+actionButton("do",
+              numericInput("simYrs", "Years of simulation", value=100, min=1, max=1000, width = "100%"),
+              icon("Refresh"), style="color: #fff; background-color: #337ab7; border-color: #2e6da4")
+    
 ```
 
 
-## Row {height="86%" .fill}
+## Row {height="80%" .fill}
 
 ### Column {.tabset}
 
@@ -196,9 +194,9 @@ Some text here
 
 ```{r}
 #numericInput("bondStake",NULL, value = 50000, min=1, max=50000, width = "20%", updateOn = "blur")
-actionButton("go", 
-             numericInput("bondStake","Refresh", value = 50000, min=1, max=50000, width = "50%"), 
-             icon("Refresh"), class = "btn-primary", width = "50%")
+#actionButton("go", 
+           #  numericInput("bondStake","Refresh", value = 50000, min=1, max=50000, width = "50%"), 
+           #  icon("Refresh"), class = "btn-primary", width = "50%")
 gt_output("yearResTab")
 ```
 
@@ -207,7 +205,7 @@ gt_output("yearResTab")
 #### Plot
 
 ```{r}
-numericInput("simYrs", NULL, value=100, min=1, max=1000, width = "100%", updateOn = "blur")
+#numericInput("simYrs", NULL, value=100, min=1, max=1000, width = "100%", updateOn = "blur")
 
 plotlyOutput("lifeSim")
 ```

@@ -77,95 +77,84 @@ ul.task-list li input[type="checkbox"] {
 
 <div class="bslib-grid-item html-fill-item tab-content bslib-grid" data-layout="fill" style="display: grid; grid-template-rows: minmax(3em, 1fr); grid-auto-columns: minmax(0, 1fr);">
 <div id="select-a-value-of-premium-bonds-and-years-of-investment-to-simulate" class="dashboard-page tab-pane show active html-fill-item html-fill-container" data-orientation="rows" aria-labelledby="tab-select-a-value-of-premium-bonds-and-years-of-investment-to-simulate">
-<div class="html-fill-item html-fill-container bslib-grid" style="display: grid; grid-template-rows: minmax(3em, 14fr) minmax(3em, 86fr); grid-auto-columns: minmax(0, 1fr);">
-<div class="html-fill-item html-fill-container bslib-grid" style="display: grid; grid-template-columns: minmax(3em, 1fr) minmax(3em, 1fr) minmax(3em, 1fr);
+<div class="html-fill-item html-fill-container bslib-grid" style="display: grid; grid-template-rows: minmax(3em, 20fr) minmax(3em, 80fr); grid-auto-columns: minmax(0, 1fr);">
+<div class="html-fill-item html-fill-container bslib-grid" style="display: grid; grid-template-columns: minmax(3em, 1fr);
 grid-auto-rows: minmax(0, 1fr);">
-<div class="card valuebox cell html-fill-item html-fill-container bslib-card bslib-value-box bg-pink showcase-left-center" data-bslib-card-init="" data-require-bs-caller="card()">
+<div class="card cell html-fill-item html-fill-container bslib-card" data-bslib-card-init="" data-require-bs-caller="card()" data-full-screen="false">
 <div class="card-body html-fill-item html-fill-container">
-<div class="html-fill-item html-fill-container value-box-grid">
-<div class="value-box-showcase html-fill-item html-fill-container">
-
-<i class="bi bi-calculator"></i></div>
-<div class="value-box-area">
-<p class="value-box-title">
-Prize probablilities
-</p>
-<p class="value-box-value">
-<div class="cell-output-display html-fill-item html-fill-container">
-<p>High to low prizes</p>
+<div class="cell quarto-layout-panel html-fill-item html-fill-container" data-layout-ncol="3">
+<div class="quarto-layout-row html-fill-item html-fill-container">
+<div class="quarto-layout-cell html-fill-item html-fill-container" style="flex-basis: 33.3%;justify-content: flex-start;">
+<button class="btn btn-default action-button btn-primary" id="go" style="width:100%;" type="button">
+<span class="action-icon">
+<i class="far fa-Refresh" role="presentation" aria-label="Refresh icon"></i>
+</span>
+<span class="action-label">
+<div class="form-group shiny-input-container html-fill-item html-fill-container" style="width:100%;">
+<label class="control-label" id="bondStake-label" for="bondStake">Bonds £</label>
+<input id="bondStake" type="number" class="shiny-input-number form-control" value="50000" data-update-on="change" min="1" max="50000">
 </div>
-</p>
+</span>
+</button>
 </div>
+<div class="quarto-layout-cell html-fill-item html-fill-container" style="flex-basis: 33.3%;justify-content: flex-start;">
+<span class="help-block">
+<h5>Adjust the £ of bond holding and years for long term simulation</h5>
+</span>
 </div>
+<div class="quarto-layout-cell html-fill-item html-fill-container" style="flex-basis: 33.3%;justify-content: flex-start;">
+<button id="do" type="button" class="btn btn-default action-button" style="color: #fff; background-color: #337ab7; border-color: #2e6da4">
+<span class="action-icon">
+<i class="far fa-Refresh" role="presentation" aria-label="Refresh icon"></i>
+</span>
+<span class="action-label">
+<div class="form-group shiny-input-container html-fill-item html-fill-container" style="width:100%;">
+<label class="control-label" id="simYrs-label" for="simYrs">Years of simulation</label>
+<input id="simYrs" type="number" class="shiny-input-number form-control" value="100" data-update-on="change" min="1" max="1000">
 </div>
-<script data-bslib-card-init="">bslib.Card.initializeAllCards();</script></div><div class="card valuebox cell html-fill-item html-fill-container bslib-card bslib-value-box bg-green showcase-left-center" data-bslib-card-init="" data-require-bs-caller="card()">
-<div class="card-body html-fill-item html-fill-container">
-<div class="html-fill-item html-fill-container value-box-grid">
-<div class="value-box-showcase html-fill-item html-fill-container">
-
-<i class="bi bi-calendar-day"></i></div>
-<div class="value-box-area">
-<p class="value-box-title">
-Monthly prizes
-</p>
-<p class="value-box-value">
-<div class="cell-output-display html-fill-item html-fill-container">
-<p>Enter £ of bonds held</p>
-</div>
-</p>
-</div>
-</div>
-</div>
-<script data-bslib-card-init="">bslib.Card.initializeAllCards();</script></div><div class="card valuebox cell html-fill-item html-fill-container bslib-card bslib-value-box bg-blue showcase-left-center" data-bslib-card-init="" data-require-bs-caller="card()">
-<div class="card-body html-fill-item html-fill-container">
-<div class="html-fill-item html-fill-container value-box-grid">
-<div class="value-box-showcase html-fill-item html-fill-container">
-
-<i class="bi bi-hourglass-split"></i></div>
-<div class="value-box-area">
-<p class="value-box-title">
-Long term simulations
-</p>
-<p class="value-box-value">
-<div class="cell-output-display html-fill-item html-fill-container">
-<p>Enter years for simulation</p>
-</div>
-</p>
+</span>
+</button>
 </div>
 </div>
 </div>
-<script data-bslib-card-init="">bslib.Card.initializeAllCards();</script></div>
+</div>
+<bslib-tooltip placement="auto" bsoptions="[]" data-require-bs-version="5" data-require-bs-caller="tooltip()">
+    <template>Expand</template>
+    <span class="bslib-full-screen-enter badge rounded-pill">
+        <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" style="height:1em;width:1em;" aria-hidden="true" role="img"><path d="M20 5C20 4.4 19.6 4 19 4H13C12.4 4 12 3.6 12 3C12 2.4 12.4 2 13 2H21C21.6 2 22 2.4 22 3V11C22 11.6 21.6 12 21 12C20.4 12 20 11.6 20 11V5ZM4 19C4 19.6 4.4 20 5 20H11C11.6 20 12 20.4 12 21C12 21.6 11.6 22 11 22H3C2.4 22 2 21.6 2 21V13C2 12.4 2.4 12 3 12C3.6 12 4 12.4 4 13V19Z"></path></svg>
+    </span>
+</bslib-tooltip><script data-bslib-card-init="">bslib.Card.initializeAllCards();</script></div>
 </div>
 <div class="fill html-fill-item html-fill-container bslib-grid" data-layout="fill" style="display: grid; grid-template-columns: minmax(3em, 1fr) minmax(3em, 1fr) minmax(3em, 1fr);
 grid-auto-rows: minmax(0, 1fr);">
 <div class="card tabset html-fill-item html-fill-container bslib-card" data-bslib-card-init="" data-require-bs-caller="card()" data-full-screen="false">
 <div class="card-header dashboard-card-no-title bslib-navs-card-title">
 
-<ul class="nav nav-tabs card-header-tabs" role="tablist" data-tabsetid="card-tabset-4"><li class="nav-item" role="presentation"><a href="#card-tabset-4-1" role="tab" data-toggle="tab" data-bs-toggle="tab" data-value="Table" aria-selected="true" class="nav-link active">Table</a></li><li class="nav-item" role="presentation"><a href="#card-tabset-4-2" role="tab" data-toggle="tab" data-bs-toggle="tab" data-value="Background" aria-selected="false" class="nav-link">Background</a></li></ul></div>
+<ul class="nav nav-tabs card-header-tabs" role="tablist" data-tabsetid="card-tabset-2"><li class="nav-item" role="presentation"><a href="#card-tabset-2-1" role="tab" data-toggle="tab" data-bs-toggle="tab" data-value="Table" aria-selected="true" class="nav-link active">Table</a></li><li class="nav-item" role="presentation"><a href="#card-tabset-2-2" role="tab" data-toggle="tab" data-bs-toggle="tab" data-value="Background" aria-selected="false" class="nav-link">Background</a></li></ul></div>
 
 
-<div class="tab-content html-fill-item html-fill-container" data-tabset-id="card-tabset-4"><div class="tab-pane active show html-fill-item html-fill-container" role="tabpanel" id="card-tabset-4-1"><div class="card-body html-fill-item html-fill-container" data-title="Table">
+<div class="tab-content html-fill-item html-fill-container" data-tabset-id="card-tabset-2"><div class="tab-pane active show html-fill-item html-fill-container" role="tabpanel" id="card-tabset-2-1"><div class="card-body html-fill-item html-fill-container" data-title="Table">
 <div class="html-fill-item html-fill-container bslib-grid" style="display: grid; grid-template-rows: minmax(3em, 1fr); grid-auto-columns: minmax(0, 1fr);">
 <div class="card cell html-fill-item html-fill-container bslib-card" data-bslib-card-init="" data-require-bs-caller="card()" data-full-screen="false">
 <div class="card-body html-fill-item html-fill-container">
 <div class="cell-output-display html-fill-item html-fill-container">
-<div id="kvfkhanoeh" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;" class="html-fill-item html-fill-container">
-<style>#kvfkhanoeh table {
+<div id="gfnbqcxiaf" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;" class="html-fill-item html-fill-container">
+<style>#gfnbqcxiaf table {
   font-family: Seravek, 'Gill Sans Nova', Ubuntu, Calibri, 'DejaVu Sans', source-sans-pro, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#kvfkhanoeh thead, #kvfkhanoeh tbody, #kvfkhanoeh tfoot, #kvfkhanoeh tr, #kvfkhanoeh td, #kvfkhanoeh th {
+#gfnbqcxiaf thead, #gfnbqcxiaf tbody, #gfnbqcxiaf tfoot, #gfnbqcxiaf tr, #gfnbqcxiaf td, #gfnbqcxiaf th {
   border-style: none;
 }
 
-#kvfkhanoeh p {
+#gfnbqcxiaf p {
   margin: 0;
   padding: 0;
 }
 
-#kvfkhanoeh .gt_table {
+#gfnbqcxiaf .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -191,12 +180,12 @@ grid-auto-rows: minmax(0, 1fr);">
   border-left-color: #D5D5D5;
 }
 
-#kvfkhanoeh .gt_caption {
+#gfnbqcxiaf .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#kvfkhanoeh .gt_title {
+#gfnbqcxiaf .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -208,7 +197,7 @@ grid-auto-rows: minmax(0, 1fr);">
   border-bottom-width: 0;
 }
 
-#kvfkhanoeh .gt_subtitle {
+#gfnbqcxiaf .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -220,7 +209,7 @@ grid-auto-rows: minmax(0, 1fr);">
   border-top-width: 0;
 }
 
-#kvfkhanoeh .gt_heading {
+#gfnbqcxiaf .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -232,13 +221,13 @@ grid-auto-rows: minmax(0, 1fr);">
   border-right-color: #D3D3D3;
 }
 
-#kvfkhanoeh .gt_bottom_border {
+#gfnbqcxiaf .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D5D5D5;
 }
 
-#kvfkhanoeh .gt_col_headings {
+#gfnbqcxiaf .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D5D5D5;
@@ -253,7 +242,7 @@ grid-auto-rows: minmax(0, 1fr);">
   border-right-color: #D3D3D3;
 }
 
-#kvfkhanoeh .gt_col_heading {
+#gfnbqcxiaf .gt_col_heading {
   color: #FFFFFF;
   background-color: #99195F;
   font-size: 100%;
@@ -273,7 +262,7 @@ grid-auto-rows: minmax(0, 1fr);">
   overflow-x: hidden;
 }
 
-#kvfkhanoeh .gt_column_spanner_outer {
+#gfnbqcxiaf .gt_column_spanner_outer {
   color: #FFFFFF;
   background-color: #99195F;
   font-size: 100%;
@@ -285,15 +274,15 @@ grid-auto-rows: minmax(0, 1fr);">
   padding-right: 4px;
 }
 
-#kvfkhanoeh .gt_column_spanner_outer:first-child {
+#gfnbqcxiaf .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#kvfkhanoeh .gt_column_spanner_outer:last-child {
+#gfnbqcxiaf .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#kvfkhanoeh .gt_column_spanner {
+#gfnbqcxiaf .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D5D5D5;
@@ -305,11 +294,11 @@ grid-auto-rows: minmax(0, 1fr);">
   width: 100%;
 }
 
-#kvfkhanoeh .gt_spanner_row {
+#gfnbqcxiaf .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#kvfkhanoeh .gt_group_heading {
+#gfnbqcxiaf .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -335,7 +324,7 @@ grid-auto-rows: minmax(0, 1fr);">
   text-align: left;
 }
 
-#kvfkhanoeh .gt_empty_group_heading {
+#gfnbqcxiaf .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -350,15 +339,15 @@ grid-auto-rows: minmax(0, 1fr);">
   vertical-align: middle;
 }
 
-#kvfkhanoeh .gt_from_md > :first-child {
+#gfnbqcxiaf .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#kvfkhanoeh .gt_from_md > :last-child {
+#gfnbqcxiaf .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#kvfkhanoeh .gt_row {
+#gfnbqcxiaf .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -377,7 +366,7 @@ grid-auto-rows: minmax(0, 1fr);">
   overflow-x: hidden;
 }
 
-#kvfkhanoeh .gt_stub {
+#gfnbqcxiaf .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -390,7 +379,7 @@ grid-auto-rows: minmax(0, 1fr);">
   padding-right: 5px;
 }
 
-#kvfkhanoeh .gt_stub_row_group {
+#gfnbqcxiaf .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -404,15 +393,15 @@ grid-auto-rows: minmax(0, 1fr);">
   vertical-align: top;
 }
 
-#kvfkhanoeh .gt_row_group_first td {
+#gfnbqcxiaf .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#kvfkhanoeh .gt_row_group_first th {
+#gfnbqcxiaf .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#kvfkhanoeh .gt_summary_row {
+#gfnbqcxiaf .gt_summary_row {
   color: #333333;
   background-color: #FFC6E3;
   text-transform: inherit;
@@ -422,16 +411,16 @@ grid-auto-rows: minmax(0, 1fr);">
   padding-right: 5px;
 }
 
-#kvfkhanoeh .gt_first_summary_row {
+#gfnbqcxiaf .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D5D5D5;
 }
 
-#kvfkhanoeh .gt_first_summary_row.thick {
+#gfnbqcxiaf .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#kvfkhanoeh .gt_last_summary_row {
+#gfnbqcxiaf .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -441,7 +430,7 @@ grid-auto-rows: minmax(0, 1fr);">
   border-bottom-color: #D5D5D5;
 }
 
-#kvfkhanoeh .gt_grand_summary_row {
+#gfnbqcxiaf .gt_grand_summary_row {
   color: #FFFFFF;
   background-color: #EF5FA7;
   text-transform: inherit;
@@ -451,7 +440,7 @@ grid-auto-rows: minmax(0, 1fr);">
   padding-right: 5px;
 }
 
-#kvfkhanoeh .gt_first_grand_summary_row {
+#gfnbqcxiaf .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -461,7 +450,7 @@ grid-auto-rows: minmax(0, 1fr);">
   border-top-color: #D5D5D5;
 }
 
-#kvfkhanoeh .gt_last_grand_summary_row_top {
+#gfnbqcxiaf .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -471,11 +460,11 @@ grid-auto-rows: minmax(0, 1fr);">
   border-bottom-color: #D5D5D5;
 }
 
-#kvfkhanoeh .gt_striped {
+#gfnbqcxiaf .gt_striped {
   background-color: #F4F4F4;
 }
 
-#kvfkhanoeh .gt_table_body {
+#gfnbqcxiaf .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D5D5D5;
@@ -484,7 +473,7 @@ grid-auto-rows: minmax(0, 1fr);">
   border-bottom-color: #D5D5D5;
 }
 
-#kvfkhanoeh .gt_footnotes {
+#gfnbqcxiaf .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -498,7 +487,7 @@ grid-auto-rows: minmax(0, 1fr);">
   border-right-color: #D3D3D3;
 }
 
-#kvfkhanoeh .gt_footnote {
+#gfnbqcxiaf .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -507,7 +496,7 @@ grid-auto-rows: minmax(0, 1fr);">
   padding-right: 5px;
 }
 
-#kvfkhanoeh .gt_sourcenotes {
+#gfnbqcxiaf .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -521,7 +510,7 @@ grid-auto-rows: minmax(0, 1fr);">
   border-right-color: #D3D3D3;
 }
 
-#kvfkhanoeh .gt_sourcenote {
+#gfnbqcxiaf .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -529,72 +518,72 @@ grid-auto-rows: minmax(0, 1fr);">
   padding-right: 5px;
 }
 
-#kvfkhanoeh .gt_left {
+#gfnbqcxiaf .gt_left {
   text-align: left;
 }
 
-#kvfkhanoeh .gt_center {
+#gfnbqcxiaf .gt_center {
   text-align: center;
 }
 
-#kvfkhanoeh .gt_right {
+#gfnbqcxiaf .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#kvfkhanoeh .gt_font_normal {
+#gfnbqcxiaf .gt_font_normal {
   font-weight: normal;
 }
 
-#kvfkhanoeh .gt_font_bold {
+#gfnbqcxiaf .gt_font_bold {
   font-weight: bold;
 }
 
-#kvfkhanoeh .gt_font_italic {
+#gfnbqcxiaf .gt_font_italic {
   font-style: italic;
 }
 
-#kvfkhanoeh .gt_super {
+#gfnbqcxiaf .gt_super {
   font-size: 65%;
 }
 
-#kvfkhanoeh .gt_footnote_marks {
+#gfnbqcxiaf .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#kvfkhanoeh .gt_asterisk {
+#gfnbqcxiaf .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#kvfkhanoeh .gt_indent_1 {
+#gfnbqcxiaf .gt_indent_1 {
   text-indent: 5px;
 }
 
-#kvfkhanoeh .gt_indent_2 {
+#gfnbqcxiaf .gt_indent_2 {
   text-indent: 10px;
 }
 
-#kvfkhanoeh .gt_indent_3 {
+#gfnbqcxiaf .gt_indent_3 {
   text-indent: 15px;
 }
 
-#kvfkhanoeh .gt_indent_4 {
+#gfnbqcxiaf .gt_indent_4 {
   text-indent: 20px;
 }
 
-#kvfkhanoeh .gt_indent_5 {
+#gfnbqcxiaf .gt_indent_5 {
   text-indent: 25px;
 }
 
-#kvfkhanoeh .katex-display {
+#gfnbqcxiaf .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#kvfkhanoeh div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#gfnbqcxiaf div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -694,7 +683,7 @@ grid-auto-rows: minmax(0, 1fr);">
     </span>
 </bslib-tooltip><script data-bslib-card-init="">bslib.Card.initializeAllCards();</script></div>
 </div>
-</div></div><div class="tab-pane html-fill-item html-fill-container" role="tabpanel" id="card-tabset-4-2"><div class="card-body html-fill-item html-fill-container" data-title="Background">
+</div></div><div class="tab-pane html-fill-item html-fill-container" role="tabpanel" id="card-tabset-2-2"><div class="card-body html-fill-item html-fill-container" data-title="Background">
 <div class="html-fill-item html-fill-container bslib-grid" style="display: grid; grid-template-rows: minmax(3em, max-content); grid-auto-columns: minmax(0, 1fr);">
 <div class="card html-fill-item html-fill-container bslib-card" data-fill="false" data-bslib-card-init="" data-require-bs-caller="card()" data-full-screen="false">
 <div class="card-body html-fill-item html-fill-container">
@@ -716,19 +705,6 @@ grid-auto-rows: minmax(0, 1fr);">
 grid-auto-rows: minmax(0, 1fr);">
 <div class="card cell html-fill-item html-fill-container bslib-card" data-bslib-card-init="" data-require-bs-caller="card()" data-full-screen="false">
 <div class="card-body html-fill-item html-fill-container">
-<div class="cell-output-display html-fill-item html-fill-container">
-<button class="btn btn-default action-button btn-primary" id="go" style="width:50%;" type="button">
-<span class="action-icon">
-<i class="far fa-Refresh" role="presentation" aria-label="Refresh icon"></i>
-</span>
-<span class="action-label">
-<div class="form-group shiny-input-container html-fill-item html-fill-container" style="width:50%;">
-<label class="control-label" id="bondStake-label" for="bondStake">Refresh</label>
-<input id="bondStake" type="number" class="shiny-input-number form-control" value="50000" data-update-on="change" min="1" max="50000">
-</div>
-</span>
-</button>
-</div>
 <div class="cell-output-display html-fill-item html-fill-container no-overflow-x">
 <div class="shiny-html-output gt_shiny html-fill-item html-fill-container" id="yearResTab"></div>
 </div>
@@ -742,19 +718,13 @@ grid-auto-rows: minmax(0, 1fr);">
 </div><div class="card tabset html-fill-item html-fill-container bslib-card" data-bslib-card-init="" data-require-bs-caller="card()" data-full-screen="false">
 <div class="card-header dashboard-card-no-title bslib-navs-card-title">
 
-<ul class="nav nav-tabs card-header-tabs" role="tablist" data-tabsetid="card-tabset-8"><li class="nav-item" role="presentation"><a href="#card-tabset-8-1" role="tab" data-toggle="tab" data-bs-toggle="tab" data-value="Plot" aria-selected="true" class="nav-link active">Plot</a></li><li class="nav-item" role="presentation"><a href="#card-tabset-8-2" role="tab" data-toggle="tab" data-bs-toggle="tab" data-value="Summary" aria-selected="false" class="nav-link">Summary</a></li></ul></div>
+<ul class="nav nav-tabs card-header-tabs" role="tablist" data-tabsetid="card-tabset-6"><li class="nav-item" role="presentation"><a href="#card-tabset-6-1" role="tab" data-toggle="tab" data-bs-toggle="tab" data-value="Plot" aria-selected="true" class="nav-link active">Plot</a></li><li class="nav-item" role="presentation"><a href="#card-tabset-6-2" role="tab" data-toggle="tab" data-bs-toggle="tab" data-value="Summary" aria-selected="false" class="nav-link">Summary</a></li></ul></div>
 
 
-<div class="tab-content html-fill-item html-fill-container" data-tabset-id="card-tabset-8"><div class="tab-pane active show html-fill-item html-fill-container" role="tabpanel" id="card-tabset-8-1"><div class="card-body html-fill-item html-fill-container" data-title="Plot">
+<div class="tab-content html-fill-item html-fill-container" data-tabset-id="card-tabset-6"><div class="tab-pane active show html-fill-item html-fill-container" role="tabpanel" id="card-tabset-6-1"><div class="card-body html-fill-item html-fill-container" data-title="Plot">
 <div class="html-fill-item html-fill-container bslib-grid" style="display: grid; grid-template-rows: minmax(3em, 1fr); grid-auto-columns: minmax(0, 1fr);">
 <div class="card cell html-fill-item html-fill-container bslib-card" data-bslib-card-init="" data-require-bs-caller="card()" data-full-screen="false">
 <div class="card-body html-fill-item html-fill-container">
-<div class="cell-output-display html-fill-item html-fill-container">
-<div class="form-group shiny-input-container html-fill-item html-fill-container" style="width:100%;">
-<label class="control-label shiny-label-null" for="simYrs" id="simYrs-label"></label>
-<input id="simYrs" type="number" class="shiny-input-number form-control" value="100" data-update-on="blur" min="1" max="1000">
-</div>
-</div>
 <div class="cell-output-display html-fill-item html-fill-container">
 <div class="plotly html-widget html-widget-output shiny-report-size shiny-report-theme html-fill-item html-fill-container" id="lifeSim" style="width:100%;height:400px;"></div>
 </div>
@@ -766,7 +736,7 @@ grid-auto-rows: minmax(0, 1fr);">
     </span>
 </bslib-tooltip><script data-bslib-card-init="">bslib.Card.initializeAllCards();</script></div>
 </div>
-</div></div><div class="tab-pane html-fill-item html-fill-container" role="tabpanel" id="card-tabset-8-2"><div class="card-body html-fill-item html-fill-container" data-title="Summary">
+</div></div><div class="tab-pane html-fill-item html-fill-container" role="tabpanel" id="card-tabset-6-2"><div class="card-body html-fill-item html-fill-container" data-title="Summary">
 <div class="html-fill-item html-fill-container bslib-grid" style="display: grid; grid-template-rows: ; grid-auto-columns: minmax(0, 1fr);">
 <div id="3ade8a4a-fb1d-4a6c-8409-ac45482d5fc9" class="hidden html-fill-item html-fill-container">
 
@@ -870,9 +840,15 @@ earnYear <- function(stake, pool, vals, probs){
   Resyrtotal <- sum(Resmnth)
 }
 
+simYrs<- reactive({
+  input$do
+  simYrs <- input$simYrs
+  
+})
+
 ResLife <- reactive({
   
-  ResLife <- sapply(1:input$simYrs, function(x) earnYear(input$bondStake, prizePool, prizeVal, prizeProb))
+  ResLife <- sapply(1:simYrs(), function(x) earnYear(input$bondStake, prizePool, prizeVal, prizeProb))
   ResLife <- sort(ResLife, decreasing = TRUE)
 
 })
@@ -931,7 +907,7 @@ ojs_define <- function(..., .session = shiny::getDefaultReactiveDomain()) {
 </p>
 <!--html_preserve-->
 <script type="application/shiny-prerendered" data-context="dependencies">
-{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["font-awesome"]},{"type":"character","attributes":{},"value":["6.5.2"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["fontawesome"]}]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["css/all.min.css","css/v4-shims.min.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["fontawesome"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.5.3"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["htmltools-fill"]},{"type":"character","attributes":{},"value":["0.5.9"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["fill"]}]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["fill.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["htmltools"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.5.9"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["htmlwidgets"]},{"type":"character","attributes":{},"value":["1.6.4"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["www"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["htmlwidgets.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["htmlwidgets"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["1.6.4"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["plotly-binding"]},{"type":"character","attributes":{},"value":["4.12.0"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["htmlwidgets"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["plotly.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["plotly"]},{"type":"logical","attributes":{},"value":[false]},{"type":"character","attributes":{},"value":["4.12.0"]}]}]}
+{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["font-awesome"]},{"type":"character","attributes":{},"value":["6.5.2"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["fontawesome"]}]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["css/all.min.css","css/v4-shims.min.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["fontawesome"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.5.3"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["font-awesome"]},{"type":"character","attributes":{},"value":["6.5.2"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["fontawesome"]}]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["css/all.min.css","css/v4-shims.min.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["fontawesome"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.5.3"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["htmltools-fill"]},{"type":"character","attributes":{},"value":["0.5.9"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["fill"]}]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["fill.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["htmltools"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.5.9"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["htmlwidgets"]},{"type":"character","attributes":{},"value":["1.6.4"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["www"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["htmlwidgets.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["htmlwidgets"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["1.6.4"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["plotly-binding"]},{"type":"character","attributes":{},"value":["4.12.0"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["htmlwidgets"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["plotly.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["plotly"]},{"type":"logical","attributes":{},"value":[false]},{"type":"character","attributes":{},"value":["4.12.0"]}]}]}
 </script>
 <!--/html_preserve-->
 <!--html_preserve-->
