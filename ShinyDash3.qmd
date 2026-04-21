@@ -141,15 +141,17 @@ output$lifeSim <- renderPlotly({
 #| layout-ncol: 3
 #helpText(h5("Change bonds held or years of simulation"))
 #numericInput("bondStake","Bonds £", value = 50000, min=1, max=50000, width = "30%")
-actionButton("go", 
-             numericInput("bondStake","Bonds £", value = 50000, min=1, max=50000, width = "100%"), 
-             icon("Refresh"), class = "btn-primary", width = "100%")
+
 helpText(h5("Adjust the £ of bond holding and years for long term simulation"))
 
+actionButton("go", 
+             numericInput("bondStake","Bonds £", value = 50000, min=1, max=50000, width ="30%"),
+             icon("Refresh"), style="color: #1B5E20; background-color: #DCEDC8; border-color: #F4511E")
+
 actionButton("do",
-              numericInput("simYrs", "Years of simulation", value=100, min=1, max=1000, width = "100%"),
-              icon("Refresh"), style="color: #fff; background-color: #337ab7; border-color: #2e6da4")
-    
+              numericInput("simYrs", "Years of simulation", value=100, min=1, max=1000, width = "50%", updateOn="blur"),
+              icon("Refresh"), style="color: #3949AB; background-color: #BBDEFB; border-color: #F4511E")
+    #F8BBD0
 ```
 
 
