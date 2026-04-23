@@ -38,7 +38,7 @@ prizeProb <- prizeNos/allPrizes
 
 
 
-# Select a value of premium bonds and years of investment to simulate
+# Are premium bonds a worthwhile investment? Simulate winnings for £ bonds held.
 
 ```{r}
 #| context: server
@@ -124,19 +124,21 @@ ResLife <- reactive({
 
 output$lifeSim <- renderPlotly({
 #hist(ResLife())
-  meanResAll <- round(mean(ResLife()),2)
+  Win <- ResLife()
+  meanResAll <- round(mean(Win),2)
   meanResYield <- round((100*meanResAll/input$bondStake),2)
   forText <- simYrs()/8
-  p <- ggplot() + aes(ResLife())+
-  geom_histogram(binwidth = 0.075, fill="steelblue", col = "white")+
+  p <- ggplot() + aes(Win)+
+  geom_histogram(binwidth = 0.075, fill="steelblue", col = "white", aes(text=paste("win=", Win)))+
   scale_x_continuous(trans='log10')+
   geom_vline(xintercept = meanResAll, col = "pink", lwd = 1, lty = "dashed")+
   annotate("text", x=meanResAll, y=-forText*0.1, label=paste0(meanResYield, "%"))+
   labs(title = paste("Return from ", input$simYrs, "years of investment"))+
-  xlab("£ Won per year")+
+  xlab("£ Value of prizes")+
   theme_minimal()
-  p <- ggplotly(p)
-  p
+  ggplotly(p, tooltip = "text")
+  
+  #p |> layout(hoverinfo = 10^x)
   #p+add_trace(x = ResLife(),  marker = list(size = 10, color = "pink", line = list(color = "red", width = 2)), hoverinfo = x)
 })
 
@@ -154,12 +156,12 @@ output$lifeSim <- renderPlotly({
 helpText(h5("Adjust the £ of bond holding and years for long term simulation"))
 
 actionButton("go", 
-             numericInput("bondStake","Bonds £", value = 50000, min=1, max=50000, width ="30%"),
+             numericInput("bondStake","Bonds £", value = 50000, min=1, max=50000, width ="50%"),
              icon("Refresh"), style="color: #1B5E20; background-color: #DCEDC8; border-color: #F4511E")
 
 actionButton("do",
-              numericInput("simYrs", "Years of simulation", value=100, min=1, max=1000, width = "50%", updateOn="blur"),
-              icon("Refresh"), style="color: #3949AB; background-color: #BBDEFB; border-color: #000000")
+              numericInput("simYrs", "Years of simulation", value=100, min=1, max=1000, width = "50%"),
+              icon("Refresh"), style="color: #303F9F; background-color: #BBDEFB; border-color: #000000")
     #F8BBD0
 ```
 
@@ -216,6 +218,7 @@ New simulations are achieved by adjusting the input numbers for the value of bon
 
 
 ```{r}
+scrolling = FALSE
 #numericInput("bondStake",NULL, value = 50000, min=1, max=50000, width = "20%", updateOn = "blur")
 #actionButton("go", 
            #  numericInput("bondStake","Refresh", value = 50000, min=1, max=50000, width = "50%"), 
