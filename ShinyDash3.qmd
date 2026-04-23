@@ -96,7 +96,7 @@ output$yearResTab <- render_gt({
 })
 
 #Long term simulations
-earnYear <- function(stake, pool, vals, probs){
+
   
   earnMonth <- function(stake, pool, vals, probs){
     mywins <- sample(pool,stake, replace = TRUE)
@@ -105,7 +105,8 @@ earnYear <- function(stake, pool, vals, probs){
     monthWin <- sum(monthWinnings)
   }
   
-  Resmnth <- sapply(1:12, function(x) earnMonth(stake, pool, vals, probs))
+ earnYear <- function(stake, pool, vals, probs){
+   Resmnth <- sapply(1:12, function(x) earnMonth(stake, pool, vals, probs))
   Resyrtotal <- sum(Resmnth)
 }
 
