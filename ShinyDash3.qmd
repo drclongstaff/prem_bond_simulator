@@ -2,7 +2,7 @@
 title: "Premimum Bond Prize Simulator"
 format: 
   dashboard:
-    scrolling: false
+    scrolling: true
     theme: materia
     nav-buttons:
       - icon: github
@@ -35,8 +35,6 @@ prizeNos <- c(2,71,142,255,712,1421,15021, 45063, 1535556, 1535556, 2803175)
 allPrizes <- sum(prizeNos)
 prizeProb <- prizeNos/allPrizes
 ```
-
-
 
 # Are premium bonds a worthwhile investment? Simulate winnings for £ bonds held.
 
@@ -130,7 +128,7 @@ output$lifeSim <- renderPlotly({
   meanResYield <- round((100*meanResAll/input$bondStake),2)
   forText <- simYrs()/8
   p <- ggplot() + aes(Win)+
-  geom_histogram(binwidth = 0.075, fill="steelblue", col = "white", aes(text=paste("win=", Win)))+
+  geom_histogram(binwidth = 0.075, fill="steelblue", col = "lightblue", aes(text=paste("win=", Win)))+
   scale_x_continuous(trans='log10')+
   geom_vline(xintercept = meanResAll, col = "pink", lwd = 1, lty = "dashed")+
   annotate("text", x=meanResAll, y=-forText*0.1, label=paste0(meanResYield, "%"))+
@@ -146,7 +144,6 @@ output$lifeSim <- renderPlotly({
 
 ```
 
-
 ## Row {height = 20% .panel-input}
 
 ```{r}
@@ -154,7 +151,7 @@ output$lifeSim <- renderPlotly({
 #helpText(h5("Change bonds held or years of simulation"))
 #numericInput("bondStake","Bonds £", value = 50000, min=1, max=50000, width = "30%")
 
-helpText(h5("Adjust the £ of bond holding and years for long term simulation"))
+helpText(h5("Adjust the £ of bond holding and years for long term simulation. Click on the green or blue boxes to update the simulation"))
 
 actionButton("go", 
              numericInput("bondStake","Bonds £", value = 50000, min=1, max=50000, width ="50%"),
@@ -166,8 +163,7 @@ actionButton("do",
     #F8BBD0
 ```
 
-
-## Row {height="80%" .fill}
+## Row {.fill height="80%"}
 
 ### Column {.tabset}
 
@@ -187,14 +183,12 @@ summaryRow <- data.frame("Prize"="Totals", "Value"= sum(prizeVal), "Number"=allP
 summaryTab <- rbind(probTab, summaryRow)
 
 summaryTab |> gt() |> 
-  #cols_label(Prize ~ "Prize Value", Number ~ "Number of Prizes", Total_value ~ "Total Value") |> 
-  #tab_header(title = "Expected prizes") |> 
   opt_stylize(style = 2, color = "pink") |> 
-  opt_table_font(stack = "humanist") #|> 
-  #tab_footnote(
-    #footnote = "There are 2,608,195 unclaimed prizes totalling £108,147,675"
+  opt_table_font(stack = "humanist") |> 
+  tab_footnote(
+    footnote = "The probablility column is calculated from the number of prizes of each value and the total number of prizes available. Other data is taken from the NS%I website"
     
-  #)
+  )
   
 ```
 
@@ -204,19 +198,19 @@ From April 2026 the chances of winning each month are 1/23000 for each £1 bond.
 
 Calculating the longterm winnings from premimum bonds is achieved in 2 steps.
 
-1. A vector containing 22999 'zeros' and a randomly placed single 'one' is generated. This is sampled m times, where m is the £ value of bonds held. The resulting vector of length m is summed to give the number of prizes won, n, for that month.
+1.  A vector containing 22999 'zeros' and a randomly placed single 'one' is generated. This is sampled m times, where m is the £ value of bonds held. The resulting vector of length m is summed to give the number of prizes won, n, for that month.
 
-2. The number of prizes generated from step 1, n, is used in a new sampling function. Here prizes shown in the table are sampled n times with the associated probabilites shown in the table.
+2.  The number of prizes generated from step 1, n, is used in a new sampling function. Here prizes shown in the table are sampled n times with the associated probabilites shown in the table.
 
 The output over a year is presented in the table in the middle panel showing the number of prizes won and the values, along with a summary for the year.
 
-The right panel is for simulating winnings over a number of chosen years. The histogram presents a distribution of prizes and the % yield based on overall winnings and bond holdings. 
+The right panel is for simulating winnings over a number of chosen years. The histogram presents a distribution of prizes, which are approximately normal on a log scale, with a few outlying prizes of high value. The log scale is not surprising (see more details at [here](https://connect.posit.cloud/drclongstaff/content/019cf824-922f-b4ad-2c7f-fff03cb7ad5e "Premium bond prize finder")).
 
 New simulations are achieved by adjusting the input numbers for the value of bonds held and the years of simulation, then clicking on the green and blue boxes.
 
+### Column
 
-### Table
-
+#### Table
 
 ```{r}
 scrolling = FALSE
@@ -227,7 +221,9 @@ scrolling = FALSE
 gt_output("yearResTab")
 ```
 
-### Column {.tabset}
+The simulated prizes over a year are shown here, including individual prizes each month and a summary for the year. The yield column is the % return on investment scaled to a year.
+
+### Column
 
 #### Plot
 
@@ -235,8 +231,7 @@ gt_output("yearResTab")
 #numericInput("simYrs", NULL, value=100, min=1, max=1000, width = "100%", updateOn = "blur")
 
 plotlyOutput("lifeSim")
+
 ```
 
-
-#### Summary
-
+After simulating years of monthly draws the plot shows the distribution of wins each year The pink line indicates the % return on investment at around 3.3%, as it should according to NS&I [here](https://www.nsandi.com/products/premium-bonds "NS&I premium bonds").
