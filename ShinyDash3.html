@@ -2,13 +2,16 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.25">
+<meta name="generator" content="quarto-1.9.36">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
 <title>Premimum Bond Prize Simulator</title>
 <style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
 div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -26,19 +29,18 @@ ul.task-list li input[type="checkbox"] {
 <script src="ShinyDash3_files/libs/clipboard/clipboard.min.js"></script>
 <script src="ShinyDash3_files/libs/quarto-html/quarto.js" type="module"></script>
 <script src="ShinyDash3_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="ShinyDash3_files/libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="ShinyDash3_files/libs/quarto-html/popper.min.js"></script>
 <script src="ShinyDash3_files/libs/quarto-html/tippy.umd.min.js"></script>
 <script src="ShinyDash3_files/libs/quarto-html/anchor.min.js"></script>
 <link href="ShinyDash3_files/libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="ShinyDash3_files/libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="ShinyDash3_files/libs/quarto-html/quarto-syntax-highlighting-dark-707d8167ce6003fca903bfe2be84ab7f.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="ShinyDash3_files/libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="ShinyDash3_files/libs/quarto-html/quarto-syntax-highlighting-845c23b38eaddc0f92fda52bfe77a8c8.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="ShinyDash3_files/libs/quarto-html/quarto-syntax-highlighting-dark-f418161beb48e0141c760e455f12af2c.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="ShinyDash3_files/libs/quarto-html/quarto-syntax-highlighting-845c23b38eaddc0f92fda52bfe77a8c8.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="ShinyDash3_files/libs/bootstrap/bootstrap.min.js"></script>
 <link href="ShinyDash3_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="ShinyDash3_files/libs/bootstrap/bootstrap-6401fd5e6f754994e8af8f56e8236ab2.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="ShinyDash3_files/libs/bootstrap/bootstrap-dark-6401fd5e6f754994e8af8f56e8236ab2.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="light">
-<link href="ShinyDash3_files/libs/bootstrap/bootstrap-6401fd5e6f754994e8af8f56e8236ab2.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="ShinyDash3_files/libs/bootstrap/bootstrap-71569834ec356891a063a87cf126b275.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="ShinyDash3_files/libs/bootstrap/bootstrap-dark-71569834ec356891a063a87cf126b275.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="light">
+<link href="ShinyDash3_files/libs/bootstrap/bootstrap-71569834ec356891a063a87cf126b275.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script src="ShinyDash3_files/libs/quarto-dashboard/quarto-dashboard.js"></script>
 <script src="ShinyDash3_files/libs/quarto-dashboard/stickythead.js"></script>
 
@@ -132,23 +134,23 @@ grid-auto-rows: minmax(0, 1fr);">
 <div class="card cell html-fill-item html-fill-container bslib-card" data-bslib-card-init="" data-require-bs-caller="card()" data-full-screen="false">
 <div class="card-body html-fill-item html-fill-container">
 <div class="cell-output-display html-fill-item html-fill-container">
-<div id="aavnudgfvc" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;" class="html-fill-item html-fill-container">
-<style>#aavnudgfvc table {
+<div id="crrpyncbet" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;" class="html-fill-item html-fill-container">
+<style>#crrpyncbet table {
   font-family: Seravek, 'Gill Sans Nova', Ubuntu, Calibri, 'DejaVu Sans', source-sans-pro, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#aavnudgfvc thead, #aavnudgfvc tbody, #aavnudgfvc tfoot, #aavnudgfvc tr, #aavnudgfvc td, #aavnudgfvc th {
+#crrpyncbet thead, #crrpyncbet tbody, #crrpyncbet tfoot, #crrpyncbet tr, #crrpyncbet td, #crrpyncbet th {
   border-style: none;
 }
 
-#aavnudgfvc p {
+#crrpyncbet p {
   margin: 0;
   padding: 0;
 }
 
-#aavnudgfvc .gt_table {
+#crrpyncbet .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -174,12 +176,12 @@ grid-auto-rows: minmax(0, 1fr);">
   border-left-color: #D5D5D5;
 }
 
-#aavnudgfvc .gt_caption {
+#crrpyncbet .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#aavnudgfvc .gt_title {
+#crrpyncbet .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -191,7 +193,7 @@ grid-auto-rows: minmax(0, 1fr);">
   border-bottom-width: 0;
 }
 
-#aavnudgfvc .gt_subtitle {
+#crrpyncbet .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -203,7 +205,7 @@ grid-auto-rows: minmax(0, 1fr);">
   border-top-width: 0;
 }
 
-#aavnudgfvc .gt_heading {
+#crrpyncbet .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -215,13 +217,13 @@ grid-auto-rows: minmax(0, 1fr);">
   border-right-color: #D3D3D3;
 }
 
-#aavnudgfvc .gt_bottom_border {
+#crrpyncbet .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D5D5D5;
 }
 
-#aavnudgfvc .gt_col_headings {
+#crrpyncbet .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D5D5D5;
@@ -236,7 +238,7 @@ grid-auto-rows: minmax(0, 1fr);">
   border-right-color: #D3D3D3;
 }
 
-#aavnudgfvc .gt_col_heading {
+#crrpyncbet .gt_col_heading {
   color: #FFFFFF;
   background-color: #99195F;
   font-size: 100%;
@@ -256,7 +258,7 @@ grid-auto-rows: minmax(0, 1fr);">
   overflow-x: hidden;
 }
 
-#aavnudgfvc .gt_column_spanner_outer {
+#crrpyncbet .gt_column_spanner_outer {
   color: #FFFFFF;
   background-color: #99195F;
   font-size: 100%;
@@ -268,15 +270,15 @@ grid-auto-rows: minmax(0, 1fr);">
   padding-right: 4px;
 }
 
-#aavnudgfvc .gt_column_spanner_outer:first-child {
+#crrpyncbet .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#aavnudgfvc .gt_column_spanner_outer:last-child {
+#crrpyncbet .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#aavnudgfvc .gt_column_spanner {
+#crrpyncbet .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D5D5D5;
@@ -288,11 +290,11 @@ grid-auto-rows: minmax(0, 1fr);">
   width: 100%;
 }
 
-#aavnudgfvc .gt_spanner_row {
+#crrpyncbet .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#aavnudgfvc .gt_group_heading {
+#crrpyncbet .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -318,7 +320,7 @@ grid-auto-rows: minmax(0, 1fr);">
   text-align: left;
 }
 
-#aavnudgfvc .gt_empty_group_heading {
+#crrpyncbet .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -333,15 +335,15 @@ grid-auto-rows: minmax(0, 1fr);">
   vertical-align: middle;
 }
 
-#aavnudgfvc .gt_from_md > :first-child {
+#crrpyncbet .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#aavnudgfvc .gt_from_md > :last-child {
+#crrpyncbet .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#aavnudgfvc .gt_row {
+#crrpyncbet .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -360,7 +362,7 @@ grid-auto-rows: minmax(0, 1fr);">
   overflow-x: hidden;
 }
 
-#aavnudgfvc .gt_stub {
+#crrpyncbet .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -373,7 +375,7 @@ grid-auto-rows: minmax(0, 1fr);">
   padding-right: 5px;
 }
 
-#aavnudgfvc .gt_stub_row_group {
+#crrpyncbet .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -387,15 +389,15 @@ grid-auto-rows: minmax(0, 1fr);">
   vertical-align: top;
 }
 
-#aavnudgfvc .gt_row_group_first td {
+#crrpyncbet .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#aavnudgfvc .gt_row_group_first th {
+#crrpyncbet .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#aavnudgfvc .gt_summary_row {
+#crrpyncbet .gt_summary_row {
   color: #333333;
   background-color: #FFC6E3;
   text-transform: inherit;
@@ -405,16 +407,16 @@ grid-auto-rows: minmax(0, 1fr);">
   padding-right: 5px;
 }
 
-#aavnudgfvc .gt_first_summary_row {
+#crrpyncbet .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D5D5D5;
 }
 
-#aavnudgfvc .gt_first_summary_row.thick {
+#crrpyncbet .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#aavnudgfvc .gt_last_summary_row {
+#crrpyncbet .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -424,7 +426,7 @@ grid-auto-rows: minmax(0, 1fr);">
   border-bottom-color: #D5D5D5;
 }
 
-#aavnudgfvc .gt_grand_summary_row {
+#crrpyncbet .gt_grand_summary_row {
   color: #FFFFFF;
   background-color: #EF5FA7;
   text-transform: inherit;
@@ -434,7 +436,7 @@ grid-auto-rows: minmax(0, 1fr);">
   padding-right: 5px;
 }
 
-#aavnudgfvc .gt_first_grand_summary_row {
+#crrpyncbet .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -444,7 +446,7 @@ grid-auto-rows: minmax(0, 1fr);">
   border-top-color: #D5D5D5;
 }
 
-#aavnudgfvc .gt_last_grand_summary_row_top {
+#crrpyncbet .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -454,11 +456,11 @@ grid-auto-rows: minmax(0, 1fr);">
   border-bottom-color: #D5D5D5;
 }
 
-#aavnudgfvc .gt_striped {
+#crrpyncbet .gt_striped {
   background-color: #F4F4F4;
 }
 
-#aavnudgfvc .gt_table_body {
+#crrpyncbet .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D5D5D5;
@@ -467,7 +469,7 @@ grid-auto-rows: minmax(0, 1fr);">
   border-bottom-color: #D5D5D5;
 }
 
-#aavnudgfvc .gt_footnotes {
+#crrpyncbet .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -481,7 +483,7 @@ grid-auto-rows: minmax(0, 1fr);">
   border-right-color: #D3D3D3;
 }
 
-#aavnudgfvc .gt_footnote {
+#crrpyncbet .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -490,7 +492,7 @@ grid-auto-rows: minmax(0, 1fr);">
   padding-right: 5px;
 }
 
-#aavnudgfvc .gt_sourcenotes {
+#crrpyncbet .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -504,7 +506,7 @@ grid-auto-rows: minmax(0, 1fr);">
   border-right-color: #D3D3D3;
 }
 
-#aavnudgfvc .gt_sourcenote {
+#crrpyncbet .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -512,72 +514,72 @@ grid-auto-rows: minmax(0, 1fr);">
   padding-right: 5px;
 }
 
-#aavnudgfvc .gt_left {
+#crrpyncbet .gt_left {
   text-align: left;
 }
 
-#aavnudgfvc .gt_center {
+#crrpyncbet .gt_center {
   text-align: center;
 }
 
-#aavnudgfvc .gt_right {
+#crrpyncbet .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#aavnudgfvc .gt_font_normal {
+#crrpyncbet .gt_font_normal {
   font-weight: normal;
 }
 
-#aavnudgfvc .gt_font_bold {
+#crrpyncbet .gt_font_bold {
   font-weight: bold;
 }
 
-#aavnudgfvc .gt_font_italic {
+#crrpyncbet .gt_font_italic {
   font-style: italic;
 }
 
-#aavnudgfvc .gt_super {
+#crrpyncbet .gt_super {
   font-size: 65%;
 }
 
-#aavnudgfvc .gt_footnote_marks {
+#crrpyncbet .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#aavnudgfvc .gt_asterisk {
+#crrpyncbet .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#aavnudgfvc .gt_indent_1 {
+#crrpyncbet .gt_indent_1 {
   text-indent: 5px;
 }
 
-#aavnudgfvc .gt_indent_2 {
+#crrpyncbet .gt_indent_2 {
   text-indent: 10px;
 }
 
-#aavnudgfvc .gt_indent_3 {
+#crrpyncbet .gt_indent_3 {
   text-indent: 15px;
 }
 
-#aavnudgfvc .gt_indent_4 {
+#crrpyncbet .gt_indent_4 {
   text-indent: 20px;
 }
 
-#aavnudgfvc .gt_indent_5 {
+#crrpyncbet .gt_indent_5 {
   text-indent: 25px;
 }
 
-#aavnudgfvc .katex-display {
+#crrpyncbet .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#aavnudgfvc div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#crrpyncbet div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -759,7 +761,7 @@ grid-auto-rows: minmax(0, 1fr);">
 </bslib-tooltip><script data-bslib-card-init="">bslib.Card.initializeAllCards();</script></div>
 <div class="card html-fill-item html-fill-container bslib-card" data-fill="false" data-bslib-card-init="" data-require-bs-caller="card()" data-full-screen="false">
 <div class="card-body html-fill-item html-fill-container">
-<p>The plot shows the distribution of wins each year for the specified number of years. The pink line indicates the % return which should be around 3.3% according to the NS&amp;I <a href="https://www.nsandi.com/products/premium-bonds" title="NS&amp;I premium bonds">website</a>. Payments are tax-free, which may be important for higher rate tax payers.</p>
+<p>The plot shows the distribution of wins each year for the specified number of years. The pink line indicates the % return which should be around 3.3% per year according to the NS&amp;I <a href="https://www.nsandi.com/products/premium-bonds" title="NS&amp;I premium bonds">website</a>. Payments are tax-free, which may be important for higher rate tax payers.</p>
 </div>
 <bslib-tooltip placement="auto" bsoptions="[]" data-require-bs-version="5" data-require-bs-caller="tooltip()">
     <template>Expand</template>
@@ -785,120 +787,107 @@ library(bslib)
 library(data.table)
 # Read once at startup, not on every input change
 allMonths <- c("Jan", "Feb", "March", "April", "May", "June", "July", "Aug", "Sept", "Oct", "Nov", "Dec")
-#set up the pool for prize draws = 1 in 23000 zeros
+# set up the pool for prize draws = 1 in 23000 zeros
 prizePool <- rep(0, 23000)
-x <- round(runif(1)*23000)
+x <- round(runif(1) * 23000)
 prizePool[x] <- 1
 
 prizeVal <- c(1e6, 100000, 50000, 25000, 10000, 5000, 1000, 500, 100, 50, 25)
-prizeNos <- c(2,71,142,255,712,1421,15021, 45063, 1535556, 1535556, 2803175)
+prizeNos <- c(2, 71, 142, 255, 712, 1421, 15021, 45063, 1535556, 1535556, 2803175)
 allPrizes <- sum(prizeNos)
-prizeProb <- prizeNos/allPrizes
+prizeProb <- prizeNos / allPrizes
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
-#allMonths <- c("Jan", "Feb", "March", "April", "May", "June", "July", "Aug", "Sept", "Oct", "Nov", "Dec")
-Earnest <- function(stake, pool, vals, probs){
-  
-  mywins <- sample(pool,stake, replace = TRUE)
+# allMonths <- c("Jan", "Feb", "March", "April", "May", "June", "July", "Aug", "Sept", "Oct", "Nov", "Dec")
+Earnest <- function(stake, pool, vals, probs) {
+  mywins <- sample(pool, stake, replace = TRUE)
   monthPrizes <- sum(mywins)
-  monthWinnings <- sample(vals, monthPrizes, replace = TRUE,  prob = probs)
+  monthWinnings <- sample(vals, monthPrizes, replace = TRUE, prob = probs)
   monthTotal <- sum(monthWinnings)
-  yearlyReturn <- round((12*monthTotal/stake)*100, 2)
-  
+  yearlyReturn <- round((12 * monthTotal / stake) * 100, 2)
+
   # Collapse winnings into a readable string
   winningsStr <- if (length(monthWinnings) == 0) "0" else paste(sort(monthWinnings), collapse = ", ")
-  results <- c( monthPrizes, monthTotal, yearlyReturn, winningsStr)
-  
+  results <- c(monthPrizes, monthTotal, yearlyReturn, winningsStr)
 }
 
-bondStake<- reactive({
+bondStake <- reactive({
   input$go
   bondStake <- input$bondStake
-  
 })
 
 yearRes <- reactive({
   bondStake <- bondStake()
   yearRes <- data.frame(t(sapply(allMonths, function(x) Earnest(bondStake, prizePool, prizeVal, prizeProb))))
-colnames(yearRes)[c(1,2,3,4)] <- c( "Prizes", "Value", "Yield", "Wins")
+  colnames(yearRes)[c(1, 2, 3, 4)] <- c("Prizes", "Value", "Yield", "Wins")
 
-#add a summary row to the table
-totalsRow <- data.frame(
-  #Month = " ",
-  Prizes      = sum(as.numeric(yearRes$Prizes)),
-  Value  = sum(as.numeric(yearRes$Value)), 
-  Yield = round(100*(sum(as.numeric(yearRes$Value))/input$bondStake), 2),
-  Wins = " "
-  #Prizes = paste(sort(unlist(strsplit(yearRes$Prizes, ", "))), collapse = ", ")
-  
-)
+  # add a summary row to the table
+  totalsRow <- data.frame(
+    # Month = " ",
+    Prizes = sum(as.numeric(yearRes$Prizes)),
+    Value = sum(as.numeric(yearRes$Value)),
+    Yield = round(100 * (sum(as.numeric(yearRes$Value)) / input$bondStake), 2),
+    Wins = " "
+    # Prizes = paste(sort(unlist(strsplit(yearRes$Prizes, ", "))), collapse = ", ")
+  )
 
-#yearRes <- cbind("Month"=allMonths, yearRes)
-yearRes <- rbind(yearRes, totalsRow)
-yearRes <- cbind("Month"=c(allMonths, "Total"), yearRes)
-#rownames(yearRes)[nrow(yearRes)] <- "Total"
-
-yearRes
-
-})
-output$yearResTab <- render_gt({
-  yearRes <- yearRes() |> 
-    gt() |> 
-    tab_header(
-    title = md("Simulated prizes for one year of draws"),
-    subtitle = paste0("for £", input$bondStake, " bonds held")
-  ) |> 
-    opt_table_font(stack = "humanist") |> 
-    opt_stylize(style = 2, color = "green")  
+  yearRes <- rbind(yearRes, totalsRow)
+  yearRes <- cbind("Month" = c(allMonths, "Total"), yearRes)
   yearRes
   
 })
+output$yearResTab <- render_gt({
+  yearRes <- yearRes() |>
+    gt() |>
+    tab_header(
+      title = md("Simulated prizes for one year of draws"),
+      subtitle = paste0("for £", input$bondStake, " bonds held")
+    ) |>
+    opt_table_font(stack = "humanist") |>
+    opt_stylize(style = 2, color = "green")
+  yearRes
+})
 
-#Long term simulations
-  earnMonth <- function(stake, pool, vals, probs){
-    mywins <- sample(pool,stake, replace = TRUE)
-    monthPrizes <- sum(mywins)
-    monthWinnings <- sample(vals, monthPrizes, replace = TRUE,  prob = probs)
-    monthWin <- sum(monthWinnings)
-  }
-  
- earnYear <- function(stake, pool, vals, probs){
-   Resmnth <- sapply(1:12, function(x) earnMonth(stake, pool, vals, probs))
+# Long term simulations
+earnMonth <- function(stake, pool, vals, probs) {
+  mywins <- sample(pool, stake, replace = TRUE)
+  monthPrizes <- sum(mywins)
+  monthWinnings <- sample(vals, monthPrizes, replace = TRUE, prob = probs)
+  monthWin <- sum(monthWinnings)
+}
+
+earnYear <- function(stake, pool, vals, probs) {
+  Resmnth <- sapply(1:12, function(x) earnMonth(stake, pool, vals, probs))
   Resyrtotal <- sum(Resmnth)
 }
 
-simYrs<- reactive({
+simYrs <- reactive({
   input$do
   simYrs <- input$simYrs
-  
 })
 
 ResLife <- reactive({
-  
   ResLife <- sapply(1:simYrs(), function(x) earnYear(input$bondStake, prizePool, prizeVal, prizeProb))
   ResLife <- sort(ResLife, decreasing = TRUE)
-
 })
 
 output$lifeSim <- renderPlotly({
-
   Win <- ResLife()
-  meanResAll <- round(mean(Win),2)
-  meanResYield <- round((100*meanResAll/input$bondStake),2)
-  forText <- simYrs()/8
-  p <- ggplot() + aes(Win)+
-  geom_histogram(binwidth = 0.075, fill="steelblue", col = "lightblue", aes(text=paste("win=", Win)))+
-  scale_x_continuous(trans='log10')+
-  geom_vline(xintercept = meanResAll, col = "pink", lwd = 1, lty = "dashed")+
-  annotate("text", x=meanResAll, y=-forText*0.1, label=paste0(meanResYield, "%"))+
-  labs(title = paste("Return from ", input$simYrs, "years of investment"))+
-  xlab("£ Value of prizes")+
-  theme_minimal()
+  meanResAll <- round(mean(Win), 2)
+  meanResYield <- round((100 * meanResAll / input$bondStake), 2)
+  forText <- simYrs() / 8
+  p <- ggplot() +
+    aes(Win) +
+    geom_histogram(binwidth = 0.075, fill = "steelblue", col = "lightblue", aes(text = paste("win=", Win))) +
+    scale_x_continuous(trans = "log10") +
+    geom_vline(xintercept = meanResAll, col = "pink", lwd = 1, lty = "dashed") +
+    annotate("text", x = meanResAll, y = -forText * 0.1, label = paste0(meanResYield, "%")) +
+    labs(title = paste0("Annual wins over ", simYrs(), " years from £",input$bondStake)) +
+    xlab("£ Value of prizes") +
+    theme_minimal()
   ggplotly(p, tooltip = "text")
-  
 })
-
 
 </script>
  

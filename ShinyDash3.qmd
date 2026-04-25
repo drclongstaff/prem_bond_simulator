@@ -124,7 +124,7 @@ output$lifeSim <- renderPlotly({
     scale_x_continuous(trans = "log10") +
     geom_vline(xintercept = meanResAll, col = "pink", lwd = 1, lty = "dashed") +
     annotate("text", x = meanResAll, y = -forText * 0.1, label = paste0(meanResYield, "%")) +
-    labs(title = paste("Return from ", input$simYrs, "years of investment")) +
+    labs(title = paste0("Annual wins over ", simYrs(), " years from £",input$bondStake)) +
     xlab("£ Value of prizes") +
     theme_minimal()
   ggplotly(p, tooltip = "text")
@@ -220,4 +220,4 @@ plotlyOutput("lifeSim")
 
 ```
 
-The plot shows the distribution of wins each year for the specified number of years. The pink line indicates the % return which should be around 3.3% according to the NS&I [website](https://www.nsandi.com/products/premium-bonds "NS&I premium bonds"). Payments are tax-free, which may be important for higher rate tax payers.
+The plot shows the distribution of wins each year for the specified number of years. The pink line indicates the % return which should be around 3.3% per year according to the NS&I [website](https://www.nsandi.com/products/premium-bonds "NS&I premium bonds"). Payments are tax-free, which may be important for higher rate tax payers.
