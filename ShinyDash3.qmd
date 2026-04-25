@@ -157,7 +157,7 @@ actionButton("go",
             style="color: #1B5E20; background-color: #DCEDC8; border-color: #F4511E")
 
 actionButton("do",
-              numericInput("simYrs", "Years of simulation", value=100, min=1, max=1000, step = 10, width = "50%", updateOn = "blur"),
+              numericInput("simYrs", "Years of simulation", value=100, min=1, max=1000, step = 10, width = "50%"),
              style="color: #303F9F; background-color: #BBDEFB; border-color: #000000")
     #F8BBD0
 ```
@@ -236,4 +236,4 @@ plotlyOutput("lifeSim")
 
 ```
 
-The plot shows the distribution of wins each year for the specified number of years. The pink line indicates the % return on investment, around 3.3% according to the NS&I [website](https://www.nsandi.com/products/premium-bonds "NS&I premium bonds"). Interest payments are tax-free, which may be important for higher rate tax payers.
+The plot shows the distribution of wins each year for the specified number of years. The pink line indicates the % return which should be around 3.3% according to the NS&I [website](https://www.nsandi.com/products/premium-bonds "NS&I premium bonds"). Payments are tax-free, which may be important for higher rate tax payers.
