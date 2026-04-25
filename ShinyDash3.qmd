@@ -3,7 +3,7 @@ title: "Premimum Bond Prize Simulator"
 format: 
   dashboard:
     scrolling: true
-    theme: materia
+    theme: simplex
     nav-buttons:
       - icon: github
         href: https://github.com/drclongstaff/premium_bonds
@@ -36,7 +36,7 @@ allPrizes <- sum(prizeNos)
 prizeProb <- prizeNos/allPrizes
 ```
 
-# Are premium bonds a worthwhile investment? Simulate winnings for £ bonds held.
+# Are premium bonds a worthwhile investment? Simulate winnings for £ value of bonds held.
 
 ```{r}
 #| context: server
@@ -88,14 +88,16 @@ yearRes
 output$yearResTab <- render_gt({
   yearRes <- yearRes() |> 
     gt() |> 
+    tab_header(
+    title = md("Simulated prizes for one year of draws"),
+    subtitle = paste0("for £", input$bondStake, " bonds held")
+  ) |> 
     opt_stylize(style = 2, color = "green")  
   yearRes
   
 })
 
 #Long term simulations
-
-  
   earnMonth <- function(stake, pool, vals, probs){
     mywins <- sample(pool,stake, replace = TRUE)
     monthPrizes <- sum(mywins)
@@ -122,7 +124,7 @@ ResLife <- reactive({
 })
 
 output$lifeSim <- renderPlotly({
-#hist(ResLife())
+
   Win <- ResLife()
   meanResAll <- round(mean(Win),2)
   meanResYield <- round((100*meanResAll/input$bondStake),2)
@@ -137,33 +139,29 @@ output$lifeSim <- renderPlotly({
   theme_minimal()
   ggplotly(p, tooltip = "text")
   
-  #p |> layout(hoverinfo = 10^x)
-  #p+add_trace(x = ResLife(),  marker = list(size = 10, color = "pink", line = list(color = "red", width = 2)), hoverinfo = x)
 })
 
 
 ```
 
-## Row {height = 20% .panel-input}
+## Row {height = 15% .panel-input}
 
 ```{r}
 #| layout-ncol: 3
-#helpText(h5("Change bonds held or years of simulation"))
-#numericInput("bondStake","Bonds £", value = 50000, min=1, max=50000, width = "30%")
 
-helpText(h5("Adjust the £ of bond holding and years for long term simulation. Click on the green or blue boxes to update the simulation"))
+helpText(h5("Adjust the £ value of bonds held in the green box and years of simulation in the blue box. Click on the green or blue boxes to update the simulation."))
 
-actionButton("go", 
+actionButton("go",
              numericInput("bondStake","Bonds £", value = 50000, min=1, max=50000, width ="50%"),
-             icon("Refresh"), style="color: #1B5E20; background-color: #DCEDC8; border-color: #F4511E")
+            style="color: #1B5E20; background-color: #DCEDC8; border-color: #F4511E")
 
 actionButton("do",
               numericInput("simYrs", "Years of simulation", value=100, min=1, max=1000, width = "50%"),
-              icon("Refresh"), style="color: #303F9F; background-color: #BBDEFB; border-color: #000000")
+             style="color: #303F9F; background-color: #BBDEFB; border-color: #000000")
     #F8BBD0
 ```
 
-## Row {.fill height="80%"}
+## Row {.fill height="85%"}
 
 ### Column {.tabset}
 
@@ -185,8 +183,11 @@ summaryTab <- rbind(probTab, summaryRow)
 summaryTab |> gt() |> 
   opt_stylize(style = 2, color = "pink") |> 
   opt_table_font(stack = "humanist") |> 
+  tab_header(
+    title = md("Premium bond prizes available")
+  ) |> 
   tab_footnote(
-    footnote = "The probablility column is calculated from the number of prizes of each value and the total number of prizes available. Other data is taken from the NS%I website"
+    footnote = "The probablility column is calculated from the number of prizes of each value and the total number of prizes available. Other data is taken from the NS&I website"
     
   )
   
@@ -200,11 +201,11 @@ Calculating the longterm winnings from premimum bonds is achieved in 2 steps.
 
 1.  A vector containing 22999 'zeros' and a randomly placed single 'one' is generated. This is sampled m times, where m is the £ value of bonds held. The resulting vector of length m is summed to give the number of prizes won, n, for that month.
 
-2.  The number of prizes generated from step 1, n, is used in a new sampling function. Here prizes shown in the table are sampled n times with the associated probabilites shown in the table.
+2.  The number of prizes generated from step 1, n, is used in a new sampling function where prizes shown in the lefthand table are sampled n times taking into account their associated probabilities.
 
 The output over a year is presented in the table in the middle panel showing the number of prizes won and the values, along with a summary for the year.
 
-The right panel is for simulating winnings over a number of chosen years. The histogram presents a distribution of prizes, which are approximately normal on a log scale, with a few outlying prizes of high value. The log scale is not surprising (see more details at [here](https://connect.posit.cloud/drclongstaff/content/019cf824-922f-b4ad-2c7f-fff03cb7ad5e "Premium bond prize finder")).
+The right panel is for simulating winnings over a number of chosen years. The histogram presents the distribution of prizes. This distribution is approximately normal on a log scale, with a few outlying prizes of high value. The log scale is not surprising (see more details [here](https://connect.posit.cloud/drclongstaff/content/019cf824-922f-b4ad-2c7f-fff03cb7ad5e "Premium bond prize finder")).
 
 New simulations are achieved by adjusting the input numbers for the value of bonds held and the years of simulation, then clicking on the green and blue boxes.
 
@@ -221,7 +222,7 @@ scrolling = FALSE
 gt_output("yearResTab")
 ```
 
-The simulated prizes over a year are shown here, including individual prizes each month and a summary for the year. The yield column is the % return on investment scaled to a year.
+The simulated prizes over a year are shown here, including individual prizes each month and a summary for the year. The yield column is the % return on investment scaled to a full year.
 
 ### Column
 
@@ -234,4 +235,4 @@ plotlyOutput("lifeSim")
 
 ```
 
-After simulating years of monthly draws the plot shows the distribution of wins each year The pink line indicates the % return on investment at around 3.3%, as it should according to NS&I [here](https://www.nsandi.com/products/premium-bonds "NS&I premium bonds").
+The plot shows the distribution of wins each year for the specified number of years. The pink line indicates the % return on investment, around 3.3% according to NS&I [here](https://www.nsandi.com/products/premium-bonds "NS&I premium bonds"). Interest payments are tax-free, which may be important for higher rate tax payers.
