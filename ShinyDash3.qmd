@@ -25,122 +25,110 @@ library(bslib)
 library(data.table)
 # Read once at startup, not on every input change
 allMonths <- c("Jan", "Feb", "March", "April", "May", "June", "July", "Aug", "Sept", "Oct", "Nov", "Dec")
-#set up the pool for prize draws = 1 in 23000 zeros
+# set up the pool for prize draws = 1 in 23000 zeros
 prizePool <- rep(0, 23000)
-x <- round(runif(1)*23000)
+x <- round(runif(1) * 23000)
 prizePool[x] <- 1
 
 prizeVal <- c(1e6, 100000, 50000, 25000, 10000, 5000, 1000, 500, 100, 50, 25)
-prizeNos <- c(2,71,142,255,712,1421,15021, 45063, 1535556, 1535556, 2803175)
+prizeNos <- c(2, 71, 142, 255, 712, 1421, 15021, 45063, 1535556, 1535556, 2803175)
 allPrizes <- sum(prizeNos)
-prizeProb <- prizeNos/allPrizes
+prizeProb <- prizeNos / allPrizes
 ```
 
 # Are premium bonds a worthwhile investment? Simulate winnings for £ value of bonds held.
 
 ```{r}
 #| context: server
-#allMonths <- c("Jan", "Feb", "March", "April", "May", "June", "July", "Aug", "Sept", "Oct", "Nov", "Dec")
-Earnest <- function(stake, pool, vals, probs){
-  
-  mywins <- sample(pool,stake, replace = TRUE)
+# allMonths <- c("Jan", "Feb", "March", "April", "May", "June", "July", "Aug", "Sept", "Oct", "Nov", "Dec")
+Earnest <- function(stake, pool, vals, probs) {
+  mywins <- sample(pool, stake, replace = TRUE)
   monthPrizes <- sum(mywins)
-  monthWinnings <- sample(vals, monthPrizes, replace = TRUE,  prob = probs)
+  monthWinnings <- sample(vals, monthPrizes, replace = TRUE, prob = probs)
   monthTotal <- sum(monthWinnings)
-  yearlyReturn <- round((12*monthTotal/stake)*100, 2)
-  
+  yearlyReturn <- round((12 * monthTotal / stake) * 100, 2)
+
   # Collapse winnings into a readable string
   winningsStr <- if (length(monthWinnings) == 0) "0" else paste(sort(monthWinnings), collapse = ", ")
-  results <- c( monthPrizes, monthTotal, yearlyReturn, winningsStr)
-  
+  results <- c(monthPrizes, monthTotal, yearlyReturn, winningsStr)
 }
 
-bondStake<- reactive({
+bondStake <- reactive({
   input$go
   bondStake <- input$bondStake
-  
 })
 
 yearRes <- reactive({
   bondStake <- bondStake()
   yearRes <- data.frame(t(sapply(allMonths, function(x) Earnest(bondStake, prizePool, prizeVal, prizeProb))))
-colnames(yearRes)[c(1,2,3,4)] <- c( "Prizes", "Value", "Yield", "Wins")
+  colnames(yearRes)[c(1, 2, 3, 4)] <- c("Prizes", "Value", "Yield", "Wins")
 
-#add a summary row to the table
-totalsRow <- data.frame(
-  #Month = " ",
-  Prizes      = sum(as.numeric(yearRes$Prizes)),
-  Value  = sum(as.numeric(yearRes$Value)), 
-  Yield = round(100*(sum(as.numeric(yearRes$Value))/input$bondStake), 2),
-  Wins = " "
-  #Prizes = paste(sort(unlist(strsplit(yearRes$Prizes, ", "))), collapse = ", ")
-  
-)
+  # add a summary row to the table
+  totalsRow <- data.frame(
+    # Month = " ",
+    Prizes = sum(as.numeric(yearRes$Prizes)),
+    Value = sum(as.numeric(yearRes$Value)),
+    Yield = round(100 * (sum(as.numeric(yearRes$Value)) / input$bondStake), 2),
+    Wins = " "
+    # Prizes = paste(sort(unlist(strsplit(yearRes$Prizes, ", "))), collapse = ", ")
+  )
 
-#yearRes <- cbind("Month"=allMonths, yearRes)
-yearRes <- rbind(yearRes, totalsRow)
-yearRes <- cbind("Month"=c(allMonths, "Total"), yearRes)
-#rownames(yearRes)[nrow(yearRes)] <- "Total"
-
-yearRes
-
-})
-output$yearResTab <- render_gt({
-  yearRes <- yearRes() |> 
-    gt() |> 
-    tab_header(
-    title = md("Simulated prizes for one year of draws"),
-    subtitle = paste0("for £", input$bondStake, " bonds held")
-  ) |> 
-    opt_stylize(style = 2, color = "green")  
+  yearRes <- rbind(yearRes, totalsRow)
+  yearRes <- cbind("Month" = c(allMonths, "Total"), yearRes)
   yearRes
   
 })
+output$yearResTab <- render_gt({
+  yearRes <- yearRes() |>
+    gt() |>
+    tab_header(
+      title = md("Simulated prizes for one year of draws"),
+      subtitle = paste0("for £", input$bondStake, " bonds held")
+    ) |>
+    opt_table_font(stack = "humanist") |>
+    opt_stylize(style = 2, color = "green")
+  yearRes
+})
 
-#Long term simulations
-  earnMonth <- function(stake, pool, vals, probs){
-    mywins <- sample(pool,stake, replace = TRUE)
-    monthPrizes <- sum(mywins)
-    monthWinnings <- sample(vals, monthPrizes, replace = TRUE,  prob = probs)
-    monthWin <- sum(monthWinnings)
-  }
-  
- earnYear <- function(stake, pool, vals, probs){
-   Resmnth <- sapply(1:12, function(x) earnMonth(stake, pool, vals, probs))
+# Long term simulations
+earnMonth <- function(stake, pool, vals, probs) {
+  mywins <- sample(pool, stake, replace = TRUE)
+  monthPrizes <- sum(mywins)
+  monthWinnings <- sample(vals, monthPrizes, replace = TRUE, prob = probs)
+  monthWin <- sum(monthWinnings)
+}
+
+earnYear <- function(stake, pool, vals, probs) {
+  Resmnth <- sapply(1:12, function(x) earnMonth(stake, pool, vals, probs))
   Resyrtotal <- sum(Resmnth)
 }
 
-simYrs<- reactive({
+simYrs <- reactive({
   input$do
   simYrs <- input$simYrs
-  
 })
 
 ResLife <- reactive({
-  
   ResLife <- sapply(1:simYrs(), function(x) earnYear(input$bondStake, prizePool, prizeVal, prizeProb))
   ResLife <- sort(ResLife, decreasing = TRUE)
-
 })
 
 output$lifeSim <- renderPlotly({
-
   Win <- ResLife()
-  meanResAll <- round(mean(Win),2)
-  meanResYield <- round((100*meanResAll/input$bondStake),2)
-  forText <- simYrs()/8
-  p <- ggplot() + aes(Win)+
-  geom_histogram(binwidth = 0.075, fill="steelblue", col = "lightblue", aes(text=paste("win=", Win)))+
-  scale_x_continuous(trans='log10')+
-  geom_vline(xintercept = meanResAll, col = "pink", lwd = 1, lty = "dashed")+
-  annotate("text", x=meanResAll, y=-forText*0.1, label=paste0(meanResYield, "%"))+
-  labs(title = paste("Return from ", input$simYrs, "years of investment"))+
-  xlab("£ Value of prizes")+
-  theme_minimal()
+  meanResAll <- round(mean(Win), 2)
+  meanResYield <- round((100 * meanResAll / input$bondStake), 2)
+  forText <- simYrs() / 8
+  p <- ggplot() +
+    aes(Win) +
+    geom_histogram(binwidth = 0.075, fill = "steelblue", col = "lightblue", aes(text = paste("win=", Win))) +
+    scale_x_continuous(trans = "log10") +
+    geom_vline(xintercept = meanResAll, col = "pink", lwd = 1, lty = "dashed") +
+    annotate("text", x = meanResAll, y = -forText * 0.1, label = paste0(meanResYield, "%")) +
+    labs(title = paste("Return from ", input$simYrs, "years of investment")) +
+    xlab("£ Value of prizes") +
+    theme_minimal()
   ggplotly(p, tooltip = "text")
-  
 })
-
 
 ```
 
@@ -148,18 +136,20 @@ output$lifeSim <- renderPlotly({
 
 ```{r}
 #| layout-ncol: 3
-
 helpText(h5("Adjust the £ value of bonds held in the green box and years of simulation in the blue box. Click on the green or blue boxes to update the simulation."))
 
 actionButton("go",
-             numericInput("bondStake","Bonds £", value = 50000, min=1, max=50000, step = 1000, width ="50%",
-                          updateOn = "blur"),
-            style="color: #1B5E20; background-color: #DCEDC8; border-color: #F4511E")
+  numericInput("bondStake", "Bonds £",
+    value = 50000, min = 1, max = 50000, step = 1000, width = "50%",
+    updateOn = "blur"
+  ),
+  style = "color: #1B5E20; background-color: #DCEDC8; border-color: #F4511E"
+)
 
 actionButton("do",
-              numericInput("simYrs", "Years of simulation", value=100, min=1, max=1000, step = 10, width = "50%"),
-             style="color: #303F9F; background-color: #BBDEFB; border-color: #000000")
-    #F8BBD0
+  numericInput("simYrs", "Years of simulation", value = 100, min = 1, max = 1000, step = 10, width = "50%"),
+  style = "color: #303F9F; background-color: #BBDEFB; border-color: #000000"
+) 
 ```
 
 ## Row {.fill height="85%"}
@@ -169,27 +159,25 @@ actionButton("do",
 #### Table
 
 ```{r}
-#Summary table of data
-
-probTab <- data.frame("Prize"=LETTERS[1:11],
-                      "Value"=prizeVal,
-                      "Number"=prizeNos,
-                      "Probability"=signif(prizeProb,3)
+# Summary table of data
+probTab <- data.frame(
+  "Prize" = LETTERS[1:11],
+  "Value" = prizeVal,
+  "Number" = prizeNos,
+  "Probability" = signif(prizeProb, 3)
 )
 
-summaryRow <- data.frame("Prize"="Totals", "Value"= sum(prizeVal), "Number"=allPrizes, "Probability" = round(sum(prizeProb)))
+summaryRow <- data.frame("Prize" = "Totals", "Value" = sum(prizeVal), "Number" = allPrizes, "Probability" = round(sum(prizeProb)))
 
 summaryTab <- rbind(probTab, summaryRow)
 
-summaryTab |> gt() |> 
-  opt_stylize(style = 2, color = "pink") |> 
-  opt_table_font(stack = "humanist") |> 
+summaryTab |>
+  gt() |>
+  opt_stylize(style = 2, color = "pink") |>
+  opt_table_font(stack = "humanist") |>
   tab_header(
     title = md("Premium bond prizes available")
-  ) #|> 
-  
-  
-  
+  )
 ```
 
 These are the number and value of available prizes each month. The probablility column is calculated from the number of each prize and total number. Other data is taken from the NS&I [website](https://www.nsandi.com/products/premium-bonds "NS&I background")
@@ -215,12 +203,9 @@ New simulations are achieved by adjusting the input numbers for the value of bon
 #### Table
 
 ```{r}
-scrolling = FALSE
-#numericInput("bondStake",NULL, value = 50000, min=1, max=50000, width = "20%", updateOn = "blur")
-#actionButton("go", 
-           #  numericInput("bondStake","Refresh", value = 50000, min=1, max=50000, width = "50%"), 
-           #  icon("Refresh"), class = "btn-primary", width = "50%")
+
 gt_output("yearResTab")
+
 ```
 
 The simulated prizes over a year are shown here, including individual prizes each month and a summary for the year. The yield column is the % return on investment scaled to a full year.
@@ -230,7 +215,6 @@ The simulated prizes over a year are shown here, including individual prizes eac
 #### Plot
 
 ```{r}
-#numericInput("simYrs", NULL, value=100, min=1, max=1000, width = "100%", updateOn = "blur")
 
 plotlyOutput("lifeSim")
 
