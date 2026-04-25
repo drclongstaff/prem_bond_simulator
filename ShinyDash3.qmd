@@ -3,7 +3,7 @@ title: "Premimum Bond Prize Simulator"
 format: 
   dashboard:
     scrolling: true
-    theme: simplex
+    theme: sandstone
     nav-buttons:
       - icon: github
         href: https://github.com/drclongstaff/premium_bonds
@@ -152,11 +152,12 @@ output$lifeSim <- renderPlotly({
 helpText(h5("Adjust the £ value of bonds held in the green box and years of simulation in the blue box. Click on the green or blue boxes to update the simulation."))
 
 actionButton("go",
-             numericInput("bondStake","Bonds £", value = 50000, min=1, max=50000, width ="50%"),
+             numericInput("bondStake","Bonds £", value = 50000, min=1, max=50000, step = 1000, width ="50%",
+                          updateOn = "blur"),
             style="color: #1B5E20; background-color: #DCEDC8; border-color: #F4511E")
 
 actionButton("do",
-              numericInput("simYrs", "Years of simulation", value=100, min=1, max=1000, width = "50%"),
+              numericInput("simYrs", "Years of simulation", value=100, min=1, max=1000, step = 10, width = "50%", updateOn = "blur"),
              style="color: #303F9F; background-color: #BBDEFB; border-color: #000000")
     #F8BBD0
 ```
@@ -185,13 +186,13 @@ summaryTab |> gt() |>
   opt_table_font(stack = "humanist") |> 
   tab_header(
     title = md("Premium bond prizes available")
-  ) |> 
-  tab_footnote(
-    footnote = "The probablility column is calculated from the number of prizes of each value and the total number of prizes available. Other data is taken from the NS&I website"
-    
-  )
+  ) #|> 
+  
+  
   
 ```
+
+These are the number and value of available prizes each month. The probablility column is calculated from the number of each prize and total number. Other data is taken from the NS&I [website](https://www.nsandi.com/products/premium-bonds "NS&I background")
 
 #### Background
 
@@ -235,4 +236,4 @@ plotlyOutput("lifeSim")
 
 ```
 
-The plot shows the distribution of wins each year for the specified number of years. The pink line indicates the % return on investment, around 3.3% according to NS&I [here](https://www.nsandi.com/products/premium-bonds "NS&I premium bonds"). Interest payments are tax-free, which may be important for higher rate tax payers.
+The plot shows the distribution of wins each year for the specified number of years. The pink line indicates the % return on investment, around 3.3% according to the NS&I [website](https://www.nsandi.com/products/premium-bonds "NS&I premium bonds"). Interest payments are tax-free, which may be important for higher rate tax payers.
