@@ -124,9 +124,11 @@ output$lifeSim <- renderPlotly({
     scale_x_continuous(trans = "log10") +
     geom_vline(xintercept = meanResAll, col = "pink", lwd = 1, lty = "dashed") +
     annotate("text", x = meanResAll, y = -forText * 0.1, label = paste0(meanResYield, "%")) +
-    labs(title = paste0("Annual wins over ", simYrs(), " years from £",input$bondStake)) +
+    ggtitle(paste0("Annual returns over \n", simYrs(), " years from £",input$bondStake))+
     xlab("£ Value of prizes") +
+    ylab("Count")+
     theme_minimal()
+    
   ggplotly(p, tooltip = "text")
 })
 
@@ -147,7 +149,8 @@ actionButton("go",
 )
 
 actionButton("do",
-  numericInput("simYrs", "Years of simulation", value = 100, min = 1, max = 1000, step = 10, width = "50%"),
+  numericInput("simYrs", "Years of simulation", value = 100, min = 1, max = 1000, step = 10, 
+               width = "50%"),
   style = "color: #303F9F; background-color: #BBDEFB; border-color: #000000"
 ) 
 ```
