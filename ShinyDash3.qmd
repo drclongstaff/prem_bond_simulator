@@ -121,7 +121,7 @@ output$lifeSim <- renderPlotly({
   p <- ggplot() +
     aes(Win) +
     geom_histogram(binwidth = 0.075, fill = "steelblue", col = "lightblue", aes(text = paste("win=", Win))) +
-    scale_x_continuous(trans = "log10") +
+    scale_x_continuous(trans = "log10") + #for log scale binwidth=0.075 works, linear try 100
     geom_vline(xintercept = meanResAll, col = "pink", lwd = 1, lty = "dashed") +
     annotate("text", x = meanResAll, y = -forText * 0.1, label = paste0(meanResYield, "%")) +
     ggtitle(paste0("Annual returns over \n", simYrs(), " years from £",input$bondStake))+
@@ -148,10 +148,9 @@ actionButton("go",
   style = "color: #1B5E20; background-color: #DCEDC8; border-color: #F4511E"
 )
 
-actionButton("do",
+actionButton("do", 
   numericInput("simYrs", "Years of simulation", value = 100, min = 1, max = 1000, step = 10, 
-               width = "50%"),
-  style = "color: #303F9F; background-color: #BBDEFB; border-color: #000000"
+               width = "50%"), style = "color: #303F9F; background-color: #BBDEFB; border-color: #000000"
 ) 
 ```
 
@@ -197,7 +196,7 @@ Calculating the longterm winnings from premimum bonds is achieved in 2 steps.
 
 The output over a year is presented in the table in the middle panel showing the number of prizes won and the values, along with a summary for the year.
 
-The right panel is for simulating winnings over a number of chosen years. The histogram presents the distribution of prizes. This distribution is approximately normal on a log scale, with a few outlying prizes of high value. The log scale is not surprising (see more details [here](https://connect.posit.cloud/drclongstaff/content/019cf824-922f-b4ad-2c7f-fff03cb7ad5e "Premium bond prize finder")).
+The right panel is for simulating winnings over a chosen number of years. The histogram presents the distribution of prizes won each year. This distribution is approximately normal on a log scale, with a few outlying prizes of high value. The log scale is not surprising (see more details [here](https://connect.posit.cloud/drclongstaff/content/019cf824-922f-b4ad-2c7f-fff03cb7ad5e "Premium bond prize finder")).
 
 New simulations are achieved by adjusting the input numbers for the value of bonds held and the years of simulation, then clicking on the green and blue boxes.
 
