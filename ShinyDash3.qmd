@@ -120,6 +120,7 @@ output$lifeSim <- renderPlotly({
   forText <- simYrs() / 8
   p <- ggplot() +
     aes(Win) +
+    #geom_histogram(binwidth = 100, fill = "steelblue", col = "lightblue", aes(text = paste("win=", Win))) +
     geom_histogram(binwidth = 0.075, fill = "steelblue", col = "lightblue", aes(text = paste("win=", Win))) +
     scale_x_continuous(trans = "log10") + #for log scale binwidth=0.075 works, linear try 100
     geom_vline(xintercept = meanResAll, col = "pink", lwd = 1, lty = "dashed") +
@@ -194,11 +195,10 @@ Calculating the longterm winnings from premimum bonds is achieved in 2 steps.
 
 2.  The number of prizes generated from step 1, n, is used in a new sampling function where prizes shown in the lefthand table are sampled n times taking into account their associated probabilities.
 
-The output over a year is presented in the table in the middle panel showing the number of prizes won and the values, along with a summary for the year.
+The output over a year is presented in the table in the middle panel showing the number and values of prizes won, along with a summary for the year.
 
-The right panel is for simulating winnings over a chosen number of years. The histogram presents the distribution of prizes won each year. This distribution is approximately normal on a log scale, with a few outlying prizes of high value. The log scale is not surprising (see more details [here](https://connect.posit.cloud/drclongstaff/content/019cf824-922f-b4ad-2c7f-fff03cb7ad5e "Premium bond prize finder")).
+The right panel is for simulating winnings over a chosen number of years. The histogram displays an approximately normal distribution of winnings on a log scale. The log scale helps visualise the wide range of possible winnings and a log scale is reasonable when considering the progression of prizes available (see also [here](https://connect.posit.cloud/drclongstaff/content/019cf824-922f-b4ad-2c7f-fff03cb7ad5e "Premium bond prize finder")). However, when exploring lower holdings it looks like the pattern of returns more likely follows a poisson distribution.
 
-New simulations are achieved by adjusting the input numbers for the value of bonds held and the years of simulation, then clicking on the green and blue boxes.
 
 ### Column
 
