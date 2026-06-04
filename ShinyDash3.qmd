@@ -185,7 +185,7 @@ summaryTab |>
   )
 ```
 
-These are the number and value of available prizes each month. The probablility column is calculated from the number of each prize and total number. Other data is taken from the NS&I [website](https://www.nsandi.com/products/premium-bonds "NS&I background"), updated for July 2026.
+These are the number and value of available prizes each month. The probablility column is calculated from the number of each prize and total number. Other data is taken from the NS&I [website](https://www.nsandi.com/products/premium-bonds "NS&I background"), updated for July 2026 changes.
 
 #### Background
 
