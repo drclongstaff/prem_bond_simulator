@@ -26,12 +26,13 @@ library(data.table)
 # Read once at startup, not on every input change
 allMonths <- c("Jan", "Feb", "March", "April", "May", "June", "July", "Aug", "Sept", "Oct", "Nov", "Dec")
 # set up the pool for prize draws = 1 in 23000 zeros
-prizePool <- rep(0, 22000) #from July 2026 goes from 23000 to 22000
-x <- round(runif(1) * 22000)
+prizePool <- rep(0, 21000) #from September 2026 goes from 22000 to 21000
+x <- round(runif(1) * 21000)
 prizePool[x] <- 1
 
 prizeVal <- c(1e6, 100000, 50000, 25000, 10000, 5000, 1000, 500, 100, 50, 25)
-prizeNos <- c(2, 71, 142, 255, 712, 1421, 15021, 45063, 1535556, 1535556, 2803175)
+# Prize numbers updated for September 2026 from MSE website
+prizeNos <- c(2, 95, 192, 382, 954, 1909, 19892, 59676, 2366135, 2366135, 1717659)
 allPrizes <- sum(prizeNos)
 prizeProb <- prizeNos / allPrizes
 ```
