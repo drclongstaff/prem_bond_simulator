@@ -132,8 +132,9 @@ output$lifeSim <- renderPlotly({
     xlab("£ Value of prizes") +
     ylab("Count")+
     theme_minimal()
-   
-  ggplotly(p, tooltip = "text")
+   #p
+  py <- ggplotly(p, tooltip = "text")
+  py |> config(displayModeBar = FALSE)
 })
 
 ```
@@ -222,7 +223,8 @@ The simulated prizes over a year are shown here, including individual prizes eac
 ```{r}
 
 plotlyOutput("lifeSim")
+#plotOutput("lifeSim")
 
 ```
 
-The plot shows the distribution of wins each year for the specified number of years. The pink line indicates the % return which should be around 3.8% per year according to the NS&I [website](https://www.nsandi.com/products/premium-bonds "NS&I premium bonds"). Payments are tax-free, which may be important for higher rate tax payers.
+The plot shows the distribution of wins each year for the specified number of years. The pink line indicates the % return which should be around 4.35% per year according to the NS&I [website](https://www.nsandi.com/products/premium-bonds "NS&I premium bonds"). Payments are tax-free, which may be important for higher rate tax payers.
