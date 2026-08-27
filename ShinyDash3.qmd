@@ -187,15 +187,15 @@ summaryTab |>
   )
 ```
 
-These are the number and value of available prizes each month. The probablility column is calculated from the number of each prize and total number. Other data is taken from the NS&I [website](https://www.nsandi.com/products/premium-bonds "NS&I background"), updated for July 2026 changes.
+These are the number and value of available prizes each month. The probablility column is calculated from the number of each prize and total number. Other data is taken from the NS&I [website](https://www.nsandi.com/products/premium-bonds "NS&I background"), updated for August 2026 changes.
 
 #### Background
 
-From July 2026 the chances of winning each month are 1/22000 for each £1 bond. The prizes available and the associated probabilities of winning are shown in the left table.
+From August 2026 the chances of winning each month are 1/21000 for each £1 bond. The prizes available and the associated probabilities of winning are shown in the left table.
 
 Calculating the longterm winnings from premimum bonds is achieved in 2 steps.
 
-1.  A vector containing 21999 'zeros' and a randomly placed single 'one' is generated. This is sampled m times, where m is the £ value of bonds held. The resulting vector of length m is summed to give the number of prizes won, n, for that month.
+1.  A vector containing 20999 'zeros' and a randomly placed single 'one' is generated. This is sampled m times, where m is the £ value of bonds held. The resulting vector of length m is summed to give the number of prizes won, n, for that month.
 
 2.  The number of prizes generated from step 1, n, is used in a new sampling function where prizes shown in the lefthand table are sampled n times taking into account their associated probabilities.
 
