@@ -25,7 +25,7 @@ library(bslib)
 library(data.table)
 
 # Load functions
-source("Functions2.R")
+source("functions2.R")
 
 # Read once at startup, not on every input change
 allMonths <- c("Jan", "Feb", "March", "April", "May", "June", "July", "Aug", "Sept", "Oct", "Nov", "Dec")
