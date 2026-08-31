@@ -1,5 +1,5 @@
 # Functions 2
-# Read once at startup, not on every input change
+# Read once at startup, not on every input changes
 
 #function to generate number and value of prizes each month
 Earnest <- function(stake, pool, vals, probs) {
